@@ -113,7 +113,7 @@
 		//注册
 		.controller('registerCtrl', ['$scope','API','lyer','md5',function($scope,API,lyer,md5){
 			
-			$scope.params={name:'',pwd:'',repwd:'',tel:'',email:'',reference:'',referencetel:''};
+			$scope.params={};
 			$scope.isRegister=false;
 			$scope.zhuce=function(){
 				
