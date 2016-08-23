@@ -1,0 +1,132 @@
+
+<!-- saved from url=(0043)http://1.m.jdd.com/views/qiantai/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><header-directive></header-directive>
+<div class="g-body">
+    <div class="m-index">
+        <div class="g-body-hd" ng-show="banner.length &gt; 0">
+            <div class="w-slide m-index-promot">
+                <div class="w-slide-wrap swiper-h" style="width:100%">
+                    <div class="swiper-container swiper-h">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" ng-repeat="item in banner">
+                                <a ui-sref="detail">
+                                    <img ng-src="{{item.imageUrl}}">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    
+                </div>
+                <div class="w-slide-controller">
+                    <div class="w-slide-controller-nav" data-pro="controllerNav"></div>
+                </div>
+            </div>
+        </div>
+        <div class="g-wrap g-body-bd">
+            <div class="m-index-mod m-index-reveal">
+                <div class="m-index-mod-hd">
+                    <h3>最新揭晓</h3>
+                </div>
+                <div class="m-index-mod-bd">
+                    <ul class="m-index-reveal-list w-goodsList-brief" data-pro="entry" id="pro-view-3">
+                        <li class="w-goodsList-item" ng-repeat="item in newAnn">
+                            <div class="w-goods w-goods-brief">
+                                <div class="w-goods-pic">
+                                    <a ui-sref="detail({pid:item.productid,issueid:item.issueid})">
+                                        <img onerror="this.src=&#39;images/default.png&#39;" width="70" height="70" ng-src="{{item.appicon}}">
+                                    </a>
+                                </div>
+                                <div class="w-countdown" ng-show="item.status == 2">
+                                    <span class="w-countdown-title">倒计时</span>
+                                    <span class="w-countdown-nums">
+                                        {{item.conttainer.mm}}:{{item.conttainer.ss}}.{{item.conttainer.hs}}
+                                    </span>
+                                </div>
+                                <div class="w-countWaiting" ng-show="item.status == 1">正在进行中...</div>
+                                <p class="w-goods-user f-txtabb" ng-show="item.status == 3">
+                                    恭喜
+                                    <a ng-cloak="">{{item.username}}</a>
+                                    获得
+                                </p>
+                                <p class="w-goods-user f-txtabb" ng-show="item.status == 4">
+                                    
+                                    <a href="javascript:;">计算中...</a>
+                                    
+                                </p>
+                                
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="m-index-mod m-index-newArrivals" ng-show="newProduct.length &gt;0">
+                <div class="m-index-mod-hd">
+                    <h3>上架新品</h3>
+                    <a class="m-index-mod-more" ui-sref="list({ordertype:3})">更多</a>
+                </div>
+                <div class="m-index-mod-bd">
+                    <ul class="w-goodsList w-goodsList-brief m-index-newArrivals-list">
+                        <li class="w-goodsList-item" ng-repeat="item in newProduct">
+                            <div class="w-goods w-goods-brief">
+                                <div class="w-goods-pic">
+                                    <a ui-sref="detail({pid:item.id,issueid:item.issueid})">
+                                        <img onerror="this.src=&#39;images/default.png&#39;" ng-src="{{item.appicon}}">
+                                    </a>
+                                </div>
+                                <p class="w-goods-title f-txtabb">
+                                    <a href="http://1.m.jdd.com/detail/1799.html" ng-cloak="">{{item.name}}</a>
+                                </p>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="m-index-mod m-index-popular">
+                <div class="m-index-mod-hd">
+                    <h3>今日热门商品</h3>
+                    <a class="m-index-mod-more" ui-sref="list({ordertype:1})">更多</a>
+                </div>
+                <div class="m-index-mod-bd">
+                    <ul class="w-goodsList w-goodsList-s m-index-popular-list">
+                        <li class="w-goodsList-item" ng-repeat="item in hot">
+                            <div class="w-goods w-goods-ing">
+                                <div class="w-goods-pic">
+                                    <a ui-sref="detail({pid:item.id,issueid:item.issueid})">
+                                        <img onerror="this.src=&#39;images/default.png&#39;" ng-src="{{item.appicon}}">
+                                    </a>
+                                </div>
+                                <div class="w-goods-info">
+                                    <p class="w-goods-title f-txtabb">
+                                        <a ui-sref="detail({pid:item.id,issueid:item.issueid})" ng-cloak="">{{item.name}}</a>
+                                    </p>
+                                    <div class="w-progressBar">
+                                        <p class="txt">揭晓进度<strong ng-cloak="">{{item.width}}%</strong></p>
+                                        <p class="wrap">
+                                            <span class="bar" style="width:{{item.width}}%;"><i class="color"></i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- <div class="w-goods-shortFunc">
+                                    <button ng-click="addCart()" class="w-button w-button-round w-button-addToCart"></button>
+                                </div> -->
+                            </div>
+                        </li>                           
+                    </ul>
+                    <div class="w-more">
+                        <a ui-sref="list">点击查看更多商品</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <cart-Directive></cart-Directive> -->
+
+
+
+
+
+</body></html>
