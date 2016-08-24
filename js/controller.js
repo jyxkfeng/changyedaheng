@@ -160,7 +160,8 @@
 			
 		}])
 		//登陆
-		.controller('loginCtrl', ['$scope','API','lyer','userInfo','md5',function($scope,API,lyer,userInfo,md5){
+		.controller('loginCtrl', ['$scope','$rootScope','API','lyer','userInfo','md5',function($scope,$rootScope,API,lyer,userInfo,md5){
+			$rootScope.body_class="login_bg";
 			console.log('login');
 			$scope.params={};
 			$scope.login=function(){
