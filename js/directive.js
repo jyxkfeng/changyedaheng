@@ -56,6 +56,10 @@
 						$scope.goIndexShow = false;
 					}
 					
+					$scope.goBack = function(){
+							history.go(-1);
+					}
+					
 					// if($stateParams.source == 'app'){
 
 					// }

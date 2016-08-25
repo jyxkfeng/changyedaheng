@@ -111,8 +111,9 @@
 			
 		}])
 		//注册
-		.controller('registerCtrl', ['$scope','API','lyer','md5',function($scope,API,lyer,md5){
-			
+		.controller('registerCtrl', ['$scope','$rootScope','API','lyer','md5',function($scope,$rootScope,API,lyer,md5){
+			$rootScope.body_class="login_bg";
+			$scope.titleShow=true;
 			$scope.params={};
 			$scope.isRegister=false;
 			$scope.zhuce=function(){
@@ -149,7 +150,7 @@
 							lyer.msg('注册成功');
 						}
 						else{
-								lyer.msg('请输入正确的手机号码');
+								lyer.msg('注册格式有误，请先检查');
 								return false;
 						}
 					});
@@ -162,6 +163,7 @@
 		//登陆
 		.controller('loginCtrl', ['$scope','$rootScope','API','lyer','userInfo','md5',function($scope,$rootScope,API,lyer,userInfo,md5){
 			$rootScope.body_class="login_bg";
+			$scope.titleShow=true;
 			console.log('login');
 			$scope.params={};
 			$scope.login=function(){
