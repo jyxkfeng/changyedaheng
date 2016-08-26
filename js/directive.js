@@ -22,8 +22,8 @@
 							location.href="index.html#index"
 						}
 						$scope.gogame=function(){
-							console.log('game');
-							location.href="index.html#game"
+							console.log('gamelistCtrl');
+							location.href="index.html#gamelist"
 						}
 						$scope.gokf=function(){
 							console.log('kf');
@@ -95,7 +95,10 @@
 				// transclude: true,
 				// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 				link: function($scope, iElm, iAttrs, controller) {
-					
+					$scope.tiphide=function(){
+						$scope.tipShow=false;
+						console.log($scope.tipShow);
+					}
 				}
 			};
 		}])

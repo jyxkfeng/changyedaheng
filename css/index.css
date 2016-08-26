@@ -69,7 +69,7 @@ body{ min-height: 100vh;}
 
 .kfbox{ position: fixed; right: 0; bottom: .45rem; width: 1.43rem;height: 1.38rem; background: url(../images/kfbox.png) center center no-repeat; background-size: cover;}
 .tipsbox{ width: 2.26rem; height: 1.49rem; right: .7rem; bottom:.7rem; position: absolute; background: url(../images/ico_tips.png) center center  no-repeat; background-size: cover;}
-.ico_close{ width: .075rem; height: .075rem; position: absolute; right: 0.25rem; top: .25rem; background: url(../images/ico_close.png) center center no-repeat; background-size: cover;}
+.ico_close{ width: .175rem; height: .175rem; position: absolute; right: 0.25rem; top: .25rem; background: url(../images/ico_close.png) center center no-repeat; background-size:.075rem 0.075rem; z-index: 2;}
 .kfbox p{ width: 100%; height:50%; font-size: .13rem; text-align: center; position: absolute; left: 0; top: 0;padding: 0 .2rem; padding-top: .3rem; color: #ffffff; }
 .footer{height: .45rem; width: 100%; position: fixed; left: 0; bottom: 0; border-top: 1px solid #D5D5D5;}
 .footer ul{ height: .45rem; background: #FFFFFF;}
@@ -85,3 +85,11 @@ body{ min-height: 100vh;}
 .active .ico_kf{ background: url(../images/ico_kf_active.png) center center no-repeat; background-size: cover;}
 .active .ico_my{ background: url(../images/ico_my_active.png) center center no-repeat; background-size: cover;}
 .footer ul li.active  span{ color:#F00056;}
+
+/*游戏选择*/
+.gamelist_bg{ background: url(../images/bg2.jpg) center center no-repeat; background-size: auto 100%; }
+.gamebtnbox{ padding-top:1.5rem; text-align: center;}
+.gamebtnbox img{ width: 34%; margin:0 10 0 6%;}
+.gzbox{ font-size: .14rem; padding: .2rem 10%;}
+.gzbox .fl{ color: #ffffff;}
+.gzbox .fr{ background: url(../images/ico_next.png) center center no-repeat; background-size: cover; width: .054rem; height:.096rem ;}

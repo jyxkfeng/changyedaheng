@@ -61,6 +61,12 @@
                 title:'首页',
                 controller:'indexCtrl'
             })
+            .state('gamelist',{
+                url:'/gamelist',
+                templateUrl:'views/qiantai/gamelist.html',
+                title:'选择游戏',
+                controller:'gamelistCtrl'
+            })
             
         $urlRouterProvider.otherwise("/index");
     }]);

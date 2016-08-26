@@ -18,7 +18,9 @@
 			
 			setTimeout(function(){
 						$scope.tipShow=true;
-						console.log($scope.tipShow);
+						
+						$scope.$apply();//重置
+						console.log('$scope.tipShow='+$scope.tipShow);
 					},3000)
 			
 			//未登录 跳转到 登陆页
@@ -152,7 +154,29 @@
 			
 
 		}])
-
+		//游戏选择
+		.controller('gamelistCtrl', ['$scope','$rootScope','$state','lyer','unlogin', function($scope,$rootScope,$state,lyer,unlogin){
+			// unlogin($scope);
+			$rootScope.body_class="gamelist_bg";
+			console.log($rootScope.isLogin);
+			$scope.footerShow=true;
+			$scope.titleShow=true;
+			$scope.tipShow=false;
+			
+			$scope.$on('unlogin',unlogin);
+			// 	if(angular.isObject(data.data) && data.data.Code == -2){
+			// 		lyer.msg(data.data.Msg,function(){
+			// 			$state.go('login');
+			// 		})
+			// 		return false;
+			// 	}else if(angular.isObject(data.data) && (data.data.Code != -2 || data.data.Code !=0)){
+			// 		lyer.msg(data.data.Msg);
+			// 	}
+			// })
+		}])
+		
+		
+		
 		.controller('userCtrl', ['$scope','$state','lyer','unlogin', function($scope,$state,lyer,unlogin){
 			// unlogin($scope);
 			$scope.$on('unlogin',unlogin);
