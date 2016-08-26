@@ -1,8 +1,31 @@
 (function(window,angular){
 	angular.module('app')
 		//首页
-		.controller('indexCtrl', ['$scope','API','lyer','countDown', function($scope,API,lyer,countDown){
-
+		.controller('indexCtrl', ['$scope','$rootScope','API','lyer','countDown', function($scope,$rootScope,API,lyer,countDown){
+			$rootScope.body_class="index_bg";
+			console.log($rootScope.isLogin);
+			$scope.footerShow=true;
+			$scope.titleShow=true;
+			$scope.tipShow=false;
+			
+			$scope.swiper=function(){
+				var mySwiper = new Swiper('.swiper-container', {
+								autoplay: 3000,//可选选项，自动滑动
+								pagination : '.swiper-pagination',
+							})
+			}
+			$scope.swiper();
+			
+			setTimeout(function(){
+						$scope.tipShow=true;
+						console.log($scope.tipShow);
+					},3000)
+			
+			//未登录 跳转到 登陆页
+			if(!$rootScope.isLogin){
+				location.href="index.html#login"
+				console.log($rootScope.isLogin);
+			}
 			// console.log(API);
 			var bannerParams = {
 				action:2005,
@@ -11,101 +34,30 @@
 				})
 			}
 			//首页轮播图
-			API.ucInt(bannerParams)
-				.success(function(rt){
-					// console.log(rt);
-					if(rt.Code == 0){
-						$scope.banner = rt.Data.list;
+//			API.ucInt(bannerParams)
+//				.success(function(rt){
+//					// console.log(rt);
+//					if(rt.Code == 0){
+//						$scope.banner = rt.Data.list;
+//
+//						setTimeout(function(){
+//							var mySwiper = new Swiper('.swiper-container', {
+//								autoplay: 3000,//可选选项，自动滑动
+//								pagination : '.swiper-pagination',
+//							})
+//						},50);
+//					}
+//				});
 
-						setTimeout(function(){
-							var mySwiper = new Swiper('.swiper-container', {
-								autoplay: 3000,//可选选项，自动滑动
-								pagination : '.swiper-pagination',
-							})
-						},50);
-					}
-				});
-
-			//最新揭晓
-			var newAnnParams = {
-				action:2007,
-				params:angular.toJson({
-					pageindex:1,
-					pagesize:3
-				})
-			}
-			API.ucInt(newAnnParams)
-				.success(function(rt){
-					if(rt.Code ==0){
-						$scope.newAnn = rt.Data.item;
-
-						//262918
-						$scope.newAnn.forEach(function(item){
-							if(item.status == 2){
-								countDown(item.stamp,new Date(),item,function(){
-									item.status =4;
-									var params = {
-										action:3001,
-										params:angular.toJson({
-											issueid:item.issueid,
-											pid:item.productid
-										})
-									}
-
-									API.ucInt(params)
-										.success(function(rt){
-											if(rt.Code == 0){
-												if(rt.Data && rt.Data.ProductIssueInfo){
-													item.status = rt.Data.ProductIssueInfo.Status;
-													item.username = rt.Data.ProductIssueInfo.UserName;
-													item.winNumber = rt.Data.ProductIssueInfo.WinNumber;												}
-												// item.status =
-											}
-										})
-								
-								});
-							}
-						})
-					}
-				});
+			
+		
 
 
-			//上架新品
-			var newProductParams = {
-				action:2006,
-				params:angular.toJson({
-					ptypeid:0,
-					ordertype:"3",
-					pageindex:1,
-					pagesize:3
-				})
-			}
-			API.ucInt(newProductParams)
-				.success(function(rt){
-					// console.log(rt);
-					if(rt.Code == 0){
-						$scope.newProduct = rt.Data.item;
-						// console.log($scope.newProduct);
-					}
-				});
+	
+	
 
 
-			//热门商品
-			var hotParams = {
-				action:2008,
-				params:{}
-			}
-			API.ucInt(hotParams)
-				.success(function(rt){
-					if(rt.Code == 0){
-						$scope.hot = rt.Data;
-						$scope.hot.forEach(function(item){
-							item.width = Math.ceil(item.buyshare / item.share *100);
-						});
-					}else{
-						lyer.msg(rt.Msg);
-					}
-				})
+		
 
 			
 			
@@ -141,7 +93,7 @@
 				var params =angular.extend({},$scope.params);
 				
 				//提交表单注册 ;
-				API.qtInt('http://10.33.96.130:9001/api/yqsuser/Register/',params)
+				API.qtInt('/api/yqsuser/Register/',params)
 					.success(function(rt){
 						rt=angular.fromJson(rt)
 						if(rt.Code ==0){
@@ -180,7 +132,7 @@
 				$scope.params.pwd=md5.createHash($scope.params.pwd+'Q56GtyNkop97H334TtyturfgErvvv98r' || '');
 				var params =angular.extend({},$scope.params);
 				//提交表单登陆 ;
-				API.qtInt('http://10.33.96.130:9001/api/yqsuser/Login/',params)
+				API.qtInt('/api/yqsuser/Login/',params)
 					.success(function(rt){
 						rt=angular.fromJson(rt)
 						
@@ -188,6 +140,7 @@
 							
 							$scope.data = rt.Data;
 							userInfo.set(rt.Data);
+							location.href="index.html#index";
 						}
 						else{
 								lyer.msg(rt.Msg);

@@ -1,7 +1,7 @@
 (function(window,angular){
 	angular.module('app')
 	.service('API', ['$http','$cookies','$rootScope','userInfo',function($http,$cookies,$rootScope,userInfo){
-			//var host = 'http://10.33.96.130:9001/api/';
+			var hostName = 'http://api.cydhch.com';
 		
 		var ucInt = function(host,params){
 
@@ -17,11 +17,11 @@
 				params = params;
 			}
 
-			return $http.post(host,{params:params});
+			return $http.post(hostName+host,{params:params});
 		}
 
 		var qtInt = function(host,params){
-			return $http.get(host,{params:params});
+			return $http.get(hostName+host,{params:params});
 		}
 		// var 
 

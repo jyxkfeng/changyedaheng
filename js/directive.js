@@ -1,7 +1,7 @@
 (function(window,angular){
 	angular.module('app')
 		//一级header
-		.directive('headerDirective', ['$state', function($state){
+		.directive('footerDirective', ['$state', function($state){
 			// Runs during compile
 			return {
 				// name: '',
@@ -12,14 +12,27 @@
 				// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 				restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
 				// template: '',
-				templateUrl: 'views/directive/headerDirective.html',
+				templateUrl: 'views/directive/footerDirective.html',
 				// replace: true,
 				// transclude: true,
 				// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 				link: function($scope, iElm, iAttrs, controller) {
-					$scope.stateName = $state.current.name;
-						
-
+						$scope.gohome=function(){
+							console.log('index');
+							location.href="index.html#index"
+						}
+						$scope.gogame=function(){
+							console.log('game');
+							location.href="index.html#game"
+						}
+						$scope.gokf=function(){
+							console.log('kf');
+							location.href="index.html#kf"
+						}
+						$scope.gomy=function(){
+							console.log('my');
+							location.href="index.html#my"
+						}
 					// console.log($scope.stateName);
 				}
 			};
@@ -66,7 +79,7 @@
 				}
 			};
 		}])
-		.directive('detailMenuDirective', [function(){
+		.directive('kfboxDirective', [function(){
 			// Runs during compile
 			return {
 				// name: '',
@@ -77,7 +90,7 @@
 				// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 				restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
 				// template: '',
-				templateUrl: 'views/directive/detailMenuDirective.html',
+				templateUrl: 'views/directive/kfboxDirective.html',
 				// replace: true,
 				// transclude: true,
 				// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),

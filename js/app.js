@@ -55,6 +55,12 @@
                 title:'登陆',
                 controller:'loginCtrl'
             })
+            .state('index',{
+                url:'/index',
+                templateUrl:'views/qiantai/index.html',
+                title:'首页',
+                controller:'indexCtrl'
+            })
             
         $urlRouterProvider.otherwise("/index");
     }]);
