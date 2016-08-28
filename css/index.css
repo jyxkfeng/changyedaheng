@@ -93,3 +93,38 @@ body{ min-height: 100vh;}
 .gzbox{ font-size: .14rem; padding: .2rem 10%;}
 .gzbox .fl{ color: #ffffff;}
 .gzbox .fr{ background: url(../images/ico_next.png) center center no-repeat; background-size: cover; width: .054rem; height:.096rem ;}
+
+/*传统游戏*/
+.ct_game_bg{ background: #7f936a;}
+.ct_game{ padding:.35rem  .15rem;}
+.ct_game ul li{ margin-top: .1rem; width: 48%; float: left; height: .97rem; background: url(../images/ico_gamebd.png) center center no-repeat; background-size: cover; padding: .05rem;}
+.ct_game ul li .gameitem{width: 100%; height: 100%;}
+.ct_game ul li .nogame{ background: url(../images/ico_nogame.png) center center no-repeat !important;background-size: cover;}
+.ct_game ul li:nth-of-type(odd){ margin-right: 4%;}
+
+.ct_game ul li .ico_snj{background: url(../images/ico_snj.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_ylgy{background: url(../images/ico_ylgy.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_dlmc{background: url(../images/ico_dlmc.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_jzgy{background: url(../images/ico_jzgy.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_htzj{background: url(../images/ico_htzj.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_tdwl{background: url(../images/ico_tdwl.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_wxc{background: url(../images/ico_wxc.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_slmsh{background: url(../images/ico_slmsh.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_blm{background: url(../images/ico_blm.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_bhyt{background: url(../images/ico_bhyt.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_wdlyg{background: url(../images/ico_wdlyg.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_smd{background: url(../images/ico_smd.png) center center no-repeat;background-size: cover;}
+
+.ct_game ul li .ico_cjnf{background: url(../images/ico_cjnf.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_gyjt{background: url(../images/ico_gyjt.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_dwdj{background: url(../images/ico_dwdj.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_blzx{background: url(../images/ico_blzx.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_mtdr{background: url(../images/ico_mtdr.png) center center no-repeat;background-size: cover;}
+.ct_game ul li .ico_cydh{background: url(../images/ico_cydh.png) center center no-repeat;background-size: cover;}
+
+/*投资*/
+
+
+
+
+
