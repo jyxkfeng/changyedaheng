@@ -123,8 +123,72 @@ body{ min-height: 100vh;}
 .ct_game ul li .ico_cydh{background: url(../images/ico_cydh.png) center center no-repeat;background-size: cover;}
 
 /*投资*/
+.touzi_bg{ background: #e8e8e8;}
+.timer_box{ height: .4rem; line-height: .4rem; background: #c7d5fa; color: #4a4ee2; padding-left: 50%; font-size: .12rem}
+.timer_box .icon_clock{ background: url(../images/icon_clock.png) center center no-repeat; width: .4rem; height: .4rem; background-size:.16rem .16rem; float: left;}
+
+.touzi_box{ margin-top: .1rem; padding: 0 .15rem;background: #FFFFFF;}
+.touzi_box .input_box{ width: 100%; height: .46rem; line-height: .45rem; border-bottom: 1px solid #D5D5D5; }
+.touzi_box .input_box i{ float: left; width: .45rem; height: .45rem;}
+.touzi_box .input_box span{ float: left;height: .45rem;line-height: .45rem;font-size: .14rem; color: #666666; }
+.touzi_box .input_box input{ width: 1.4rem; text-align: right; height: .45rem; line-height: .45rem; font-size: .14rem; float: right;}
+.touzi_box .input_box:last-child{ border-bottom: none;}
+.touzi_box .input_box input:::-webkit-input-placeholder{ font-size: .14rem}
+.qrdk_btn{ background: url(../images/qrdk_btn.png) center center no-repeat; background-size: cover; width: 2.7rem; height: .42rem; margin: 0 auto; margin-top: .45rem; font-size: .2rem; text-align: center; color: #FFFFFF; line-height: .42rem;}
+.cancel_btn{ background: url(../images/cancel_btn.png) center center no-repeat; background-size: cover;}
+
+.input_box i.icon_touzi{ background: url(../images/icon_touzi.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_sh{ background: url(../images/icon_sh.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_ghs{ background: url(../images/icon_ghs.png) center center no-repeat; background-size:  auto 50%;}
 
 
+.input_box i.icon_username{ background: url(../images/icon_user.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_tel{ background: url(../images/icon_tel.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_card{ background: url(../images/icon_card.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_alipay{ background: url(../images/icon_alipay.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_jsr{ background: url(../images/icon_jsr.png) center center no-repeat; background-size:  auto 50%;}
+.input_box i.icon_jsrtel{ background: url(../images/icon_jsrtel.png) center center no-repeat; background-size:  auto 50%;}
 
+.updata_contant{ padding:.1rem .25rem;}
+.updata_contant .upload_btn{ width: .65rem; height: .65rem; background: url(../images/uopoad_btn.png) center center no-repeat; background-size: cover; font-size: 0}
+.updata_contant .upload_btn img{width: .65rem; height: .65rem;}
 
+/*弹窗*/
+.mask{ position: fixed; width: 100%; height: 100%; left: 0; top: 0; background: #000000;z-index: 2; opacity: .5;}
+.dialog{ background: #FFFFFF; border-radius: .03rem; width: 2.48rem; position: fixed;z-index: 3; left: 0 ; right: 0; margin: 0 auto; bottom: 30%; padding: .15rem;}
+.dialog .tltle{ font-size: .3rem; color: #ff7800; text-align: center;}
+.dialog .des{ color: #333333; font-size: .14rem; padding: .1rem 0;}
+.dialog .btn{ background: url(../images/ico_btn2.png) center center no-repeat; width: 1rem; height: .37rem;  line-height: .37rem;text-align: center; color: #FFFFFF; border-radius: .03rem; font-size: .22rem}
+.dialog .close_btn{ background: url(../images/icon_close.png) center center no-repeat;width:.15rem; height: .15rem; background-size: cover; position: absolute; right: 0.15rem; top: 0.15rem;}
 
+/*规则*/
+.gzdialog{position: fixed;z-index: 3; left: 0 ; right: 0; margin: 0 auto; bottom: 15%; padding: .1rem; background: url(../images/bg3.jpg) center center no-repeat;  background-size:cover;width: 2.26rem; height: 3.73rem; margin: 0 auto;}
+.gzbg{ width: 100%; height: 100%; background: url(../images/gzbg.png) center center no-repeat; background-size: cover; padding: .4rem .2rem .3rem;}
+.gzdialog .title{ font-size: .2rem; color: #FFFFFF;}
+.gzdialog .des{font-size: .2rem; color: #FFFFFF; padding-top: .36rem;}
+.gzdialog .btn{ margin-top: .2rem; background: url(../images/ico_btn3.png) center center no-repeat; width: 1rem; height: .37rem;  line-height: .37rem;text-align: center; color: #FFFFFF; border-radius: .03rem; font-size: .22rem}
+
+.order_bg{ background: #E8E8E8;}
+.order_menus{ background: #FFFFFF; height: .38rem; line-height: .38rem; border-bottom: 1px solid #D5D5D5;}
+.order_menus ul li{ font-size: 0;height: .38rem; line-height: .38rem;  width: 20%; text-align: center; float: left;}
+.order_menus ul li a{ font-size: .14rem;height: .37rem; line-height: .37rem; display: inline-block; padding: 0 .05rem; border-bottom: 1px solid #FFFFFF;}
+.order_menus ul li a.active{ color: #f00056; border-color: #f00056;}
+
+.orderlist{}
+.orderlist .item{ padding: .05rem .15rem; background: #FFFFFF; margin-top: .03rem;}
+.orderlist .item .des{ font-size: .14rem; line-height: .25rem; color: #999999;}
+.orderlist .item .des .stuas{ float: right; color: #ff9a2d;}
+
+.kf_bg{ background: #E8E8E8;}
+.kf_warp{}
+.kf_warp .title{ font-size: .13rem; color: #666666; text-align: left; padding: 0 .15rem; height: .38rem; line-height: .38rem;}
+.kf_box{ background: #FFFFFF; padding: 0 .15rem;}
+.kf_box .input_box{ width: 100%; height: .46rem; line-height: .45rem; border-bottom: 1px solid #D5D5D5; }
+.kf_box .input_box i{ float: left; width: .45rem; height: .45rem;}
+.kf_box .input_box input{ width: 1.4rem; text-align: right; height: .45rem; line-height: .45rem; font-size: .14rem; float: left; background:none; border: none; text-align: left;}
+.kf_box .input_box:last-child{ border: none;}
+.lblist{ padding:  0 .15rem;}
+.lblist ul li{ float: left; padding: 0 .03rem; height: .25rem; line-height: .25rem; border-radius: .03rem; text-align: center; font-size:.12rem; color: #666666; border:1px solid #666666; border-radius:.02rem; margin-left: .03rem;}
+.lblist ul li.active{ background: #666666; color: #FFFFFF}
+
+.kf_description{ background: #FFFFFF; width: 100%; height:1.35rem; border: none; padding: .15rem;}
