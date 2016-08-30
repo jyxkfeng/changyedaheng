@@ -30,8 +30,8 @@
 							location.href="index.html#kf"
 						}
 						$scope.gomy=function(){
-							console.log('my');
-							location.href="index.html#my"
+							console.log('myhome');
+							location.href="index.html#myhome"
 						}
 					// console.log($scope.stateName);
 				}

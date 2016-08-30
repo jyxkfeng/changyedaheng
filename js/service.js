@@ -78,6 +78,16 @@
 			}
 		};
 	}])
+	.factory('isBindCard', ['API','userInfo','$rootScope', function(API,userInfo,$rootScope){
+
+		return function(){
+			if(!angular.isUndefined(userInfo.get().IsBindBank)){
+				$rootScope.IsBindBank = true;
+			}else{
+				$rootScope.IsBindBank = false;
+			}
+		};
+	}])
 	.factory('lyer', [function(){
 		// return function(msg){
 

@@ -25,8 +25,13 @@
 			
 			//未登录 跳转到 登陆页
 			if(!$rootScope.isLogin){
-				location.href="index.html#login"
+				location.href="index.html#login";
 				console.log($rootScope.isLogin);
+			}
+			//判断用户是否绑定
+			if(!$rootScope.isBindCard){
+				console.log("去绑定银行卡");
+				location.href="index.html#bankcard";
 			}
 			// console.log(API);
 			var bannerParams = {
@@ -101,7 +106,10 @@
 						if(rt.Code ==0){
 							
 							$scope.data = rt.Data;
-							lyer.msg('注册成功');
+							lyer.msg('注册成功',function(){
+								location.href="index.html#login";
+							});
+							
 						}
 						else{
 								lyer.msg('注册格式有误，请先检查');
@@ -154,6 +162,53 @@
 			
 
 		}])
+		//绑定银行卡
+		.controller('bankcardCtrl', ['$scope','$rootScope','API','lyer','userInfo','md5',function($scope,$rootScope,API,lyer,userInfo,md5){
+			$rootScope.body_class="login_bg";
+			$scope.titleShow=true;
+			$scope.params={};
+			$scope.isbindcard=false;
+			$scope.bindCard=function(){
+				
+				console.log('bindCard');
+				console.log(userInfo.get().UId);
+				if($scope.registerForm.realname.$error.required||$scope.registerForm.cardid.$error.required||$scope.registerForm.cardtype.$error.required||$scope.registerForm.cardaddress.$error.required||$scope.registerForm.alipayid.$error.required){
+					lyer.msg('不能为空');
+					return false;
+				}
+				else if($scope.registerForm.realname.$error.pattern||$scope.registerForm.cardid.$error.pattern||$scope.registerForm.cardtype.$error.pattern||$scope.registerForm.cardaddress.$error.pattern||$scope.registerForm.alipayid.$error.pattern){
+					lyer.msg('请正确输入');
+					return false;
+				}
+				 else{
+				 	$scope.isbindcard=false;
+				 	var params =angular.extend({'uid':userInfo.get().UId},$scope.params);
+				 	console.log(params);
+				 	//提交银行卡绑定 ;
+				API.qtInt('api/yqsuser/BandCard/',params)
+					.success(function(rt){
+						rt=angular.fromJson(rt)
+						if(rt.Code == -1){
+							
+							$scope.data = rt.Data;
+							lyer.msg('绑定成功');
+						}
+						else{
+								lyer.msg('绑定格式有误，请先检查');
+								return false;
+						}
+					});
+				
+				 	
+				 }
+				
+			}
+
+			
+
+		}])
+		
+		
 		//游戏选择
 		.controller('gamelistCtrl', ['$scope','$rootScope','$state','lyer','unlogin', function($scope,$rootScope,$state,lyer,unlogin){
 			// unlogin($scope);
@@ -177,8 +232,11 @@
 		
 		
 		
-		.controller('userCtrl', ['$scope','$state','lyer','unlogin', function($scope,$state,lyer,unlogin){
+		.controller('myhomeCtrl', ['$scope','$rootScope','$state','lyer','unlogin', function($scope,$rootScope,$state,lyer,unlogin){
 			// unlogin($scope);
+			$rootScope.body_class="myhone_bg";
+			$scope.footerShow=true;
+			$scope.titleShow=true;
 			$scope.$on('unlogin',unlogin);
 			// 	if(angular.isObject(data.data) && data.data.Code == -2){
 			// 		lyer.msg(data.data.Msg,function(){
@@ -190,6 +248,58 @@
 			// 	}
 			// })
 		}])
+		
+		.controller('kfCtrl', ['$scope','$rootScope','$state','lyer','unlogin', function($scope,$rootScope,$state,lyer,unlogin){
+			// unlogin($scope);
+			$rootScope.body_class="kf_bg";
+			$scope.footerShow=true;
+			$scope.titleShow=true;
+			$scope.$on('unlogin',unlogin);
+			// 	if(angular.isObject(data.data) && data.data.Code == -2){
+			// 		lyer.msg(data.data.Msg,function(){
+			// 			$state.go('login');
+			// 		})
+			// 		return false;
+			// 	}else if(angular.isObject(data.data) && (data.data.Code != -2 || data.data.Code !=0)){
+			// 		lyer.msg(data.data.Msg);
+			// 	}
+			// })
+		}])
+		
+		.controller('chuantongCtrl', ['$scope','$rootScope','$state','lyer','unlogin', function($scope,$rootScope,$state,lyer,unlogin){
+			// unlogin($scope);
+			$rootScope.body_class="ct_game_bg";
+			$scope.footerShow=true;
+			$scope.titleShow=true;
+			$scope.$on('unlogin',unlogin);
+			// 	if(angular.isObject(data.data) && data.data.Code == -2){
+			// 		lyer.msg(data.data.Msg,function(){
+			// 			$state.go('login');
+			// 		})
+			// 		return false;
+			// 	}else if(angular.isObject(data.data) && (data.data.Code != -2 || data.data.Code !=0)){
+			// 		lyer.msg(data.data.Msg);
+			// 	}
+			// })
+		}])
+		
+		.controller('ziyouCtrl', ['$scope','$rootScope','$state','lyer','unlogin', function($scope,$rootScope,$state,lyer,unlogin){
+			// unlogin($scope);
+			$rootScope.body_class="ct_game_bg";
+			$scope.footerShow=true;
+			$scope.titleShow=true;
+			$scope.$on('unlogin',unlogin);
+			// 	if(angular.isObject(data.data) && data.data.Code == -2){
+			// 		lyer.msg(data.data.Msg,function(){
+			// 			$state.go('login');
+			// 		})
+			// 		return false;
+			// 	}else if(angular.isObject(data.data) && (data.data.Code != -2 || data.data.Code !=0)){
+			// 		lyer.msg(data.data.Msg);
+			// 	}
+			// })
+		}])
+		
 		//个人中心
 		.controller('userIndexCtrl', ['$scope','$rootScope','$state','API','lyer','$cookieStore', function($scope,$rootScope,$state,API,lyer,$cookieStore){
 

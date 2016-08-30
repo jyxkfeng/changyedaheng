@@ -55,6 +55,12 @@
                 title:'登陆',
                 controller:'loginCtrl'
             })
+             .state('bankcard',{
+                url:'/bankcard',
+                templateUrl:'views/qiantai/bankcard.html',
+                title:'完善资料',
+                controller:'bankcardCtrl'
+            })
             .state('index',{
                 url:'/index',
                 templateUrl:'views/qiantai/index.html',
@@ -66,6 +72,30 @@
                 templateUrl:'views/qiantai/gamelist.html',
                 title:'选择游戏',
                 controller:'gamelistCtrl'
+            })
+            .state('myhome',{
+                url:'/myhome',
+                templateUrl:'views/qiantai/myhome.html',
+                title:'个人中心',
+                controller:'myhomeCtrl'
+            })
+            .state('kf',{
+                url:'/kf',
+                templateUrl:'views/qiantai/kf.html',
+                title:'客服',
+                controller:'kfCtrl'
+            })
+            .state('chuantong',{
+                url:'/chuantong',
+                templateUrl:'views/qiantai/chuantong.html',
+                title:'传统模式',
+                controller:'chuantongCtrl'
+            })
+            .state('ziyou',{
+                url:'/ziyou',
+                templateUrl:'views/qiantai/ziyou.html',
+                title:'自由模式',
+                controller:'ziyouCtrl'
             })
             
         $urlRouterProvider.otherwise("/index");

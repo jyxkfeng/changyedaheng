@@ -31,6 +31,9 @@ body{ min-height: 100vh;}
 .login_box .input_text .ico_refernce{ background: url(../images/ico_refrence.png) center center no-repeat; background-size:auto 80%;}
 .login_box .input_text .ico_reftel{ background: url(../images/ico_reftel.png) center center no-repeat; background-size: auto 80%;}
 
+.login_box .input_text .ico_alipay{ background: url(../images/ico_alipay.png) center center no-repeat; background-size:auto 80%;}
+.login_box .input_text .ico_card{ background: url(../images/ico_card.png) center center no-repeat; background-size:auto 80%;}
+
 
 
 
@@ -192,3 +195,45 @@ body{ min-height: 100vh;}
 .lblist ul li.active{ background: #666666; color: #FFFFFF}
 
 .kf_description{ background: #FFFFFF; width: 100%; height:1.35rem; border: none; padding: .15rem;}
+
+/*体现*/
+.tixian_bg{background: #E8E8E8;}
+.txbox{ background: #FFFFFF; padding: .15rem; margin-top: .2rem;}
+.txbox .title{ font-size: .14rem; color: #333333; line-height: .3rem; padding-bottom: .23rem;}
+.txbox .money_box{ line-height: .5rem; font-size: 0; border-bottom: 1px solid #D5D5D5;}
+.txbox .money_box i.icon_rmb{ background: url(../images/ico_rmb.png) center center no-repeat; width: .5rem; height: .5rem; background-size: cover; float:left; display: inline-block; font-size: 0}
+.txbox .money_box input{ width: 2rem; display: inline-block; height: .5rem; line-height: .5rem; font-size: .3rem; background: none; border: none;}
+
+.txbox .input_box i{ float: left; width: .45rem; height: .45rem;}
+.txbox .input_box span{ float: left;height: .45rem;line-height: .45rem;font-size: .14rem; color: #666666; }
+.txbox .input_box input{ width: 1.4rem; text-align: right; height: .45rem; line-height: .45rem; font-size: .14rem; float: right;}
+.txbox .input_box:last-child{ border-bottom: none;}
+
+/*我的*/
+.myhone_bg{ background: #E8E8E8;}
+.my_box{ padding: .1rem .2rem; font-size: 0; background: url(../images/homebg.jpg) center center; background-size: cover; width: 100%; height: 1rem;}
+.my_box a{ width: .56rem; height: .56rem; float: left; border-radius: 50%; overflow: hidden; font-size: 0}
+.my_box a img{ width: 100%; height: 100%;}
+.my_box span{ float: left; font-size: .14rem; color: #666666; line-height: .28rem; padding-left: .15rem;}
+.ico_go{ background: url(../images/icon_go.png) center center no-repeat; width: .075rem; height: .56rem; background-size: .075rem .15rem; float: right;}
+.my_box p{ font-size: .12rem; padding: 0;}
+.myorder{ background: #FFFFFF; height: .55rem; padding:0  .1rem; line-height: .55rem; font-size: .14rem; color: #666666;}
+
+.mymenus_box{ background: #FFFFFF; margin-top: .1rem;}
+.mymenus_box .menuItem{ height: .45rem; line-height: .45rem; font-size: 0; padding: 0 .15rem; border-bottom: 1px solid #D5D5D5;}
+.mymenus_box .menuItem .icon{ width:.16rem; height: 100%;  float: left;}
+.mymenus_box .menuItem span{height: .45rem; line-height: .45rem;  float:left;font-size: .14rem; padding-left: .12rem;}
+.mymenus_box .menuItem .ico_go{ background: url(../images/icon_go.png) center center no-repeat; width: .075rem; height: .45rem; background-size: .075rem .15rem; float: right;}
+
+.mymenus_box .menuItem i.icon_qb{ background: url(../images/icon_qb.png) center center no-repeat; background-size: 100% auto;}
+.mymenus_box .menuItem i.icon_myghs{ background: url(../images/icon_myghs.png) center center no-repeat; background-size: 100% auto;}
+.mymenus_box .menuItem i.icon_myteam{ background: url(../images/icon_myteam.png) center center no-repeat; background-size: 100% auto;}
+
+.mymenus_box .menuItem i.icon_gift{ background: url(../images/icon_gift.png) center center no-repeat; background-size: 100% auto;}
+.mymenus_box .menuItem i.icon_jf{ background: url(../images/icon_jf.png) center center no-repeat; background-size: 100% auto;}
+
+/*钱包*/
+.qianbao_bg{ background: #E8E8E8;}
+.qianbaobox{ background: #7ea6f1; padding: .25rem;}
+.qianbaobox .title{ font-size: .14rem; color: #FFFFFF;}
+.qianbaobox .money{ font-size: .45rem; color: #FFFFFF;}
