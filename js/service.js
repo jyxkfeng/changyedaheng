@@ -81,7 +81,7 @@
 	.factory('isBindCard', ['API','userInfo','$rootScope', function(API,userInfo,$rootScope){
 
 		return function(){
-			if(!angular.isUndefined(userInfo.get().IsBindBank)){
+			if(userInfo.get().IsBindBank){
 				$rootScope.IsBindBank = true;
 			}else{
 				$rootScope.IsBindBank = false;

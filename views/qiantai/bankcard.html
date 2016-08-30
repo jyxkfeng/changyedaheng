@@ -16,11 +16,11 @@
 					<div class="login_box register_box">					
 						<div class="input_text">
 							<span class="ico ico_username"></span>
-							<input name="realname" value="" placeholder="请输入姓名"  ng-model='params.realname'  required   ng-required="true"/>						
+							<input name="realname" value="" placeholder="请输入姓名"  ng-model='params.realname'  required   ng-required="true" ng-pattern="/^[\u4E00-\u9FA5]{2,20}$/" pattern="/^[\u4E00-\u9FA5]{2,20}$/"/>						
 						</div>
 						<div class="input_text">
 							<span class="ico ico_card"></span>
-							<input  name="cardid" value="" type="" placeholder="请输入银行卡号"  ng-model='params.cardid'  required   ng-required="true"  ng-pattern="/^(\d{16}|\d{19})$/"  pattern="/^(\d{16}|\d{19})$/"  />
+							<input  name="cardid" value="" type="" placeholder="请输入银行卡号"  ng-model='params.cardid'  required   ng-required="true"  ng-pattern="/^([0-9]{16}|[0-9]{19})$/"  pattern="/^([0-9]{16}|[0-9]{19})$/"  />
 						</div>
 						<div class="input_text">
 							<span class="ico ico_card"></span>

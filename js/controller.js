@@ -1,10 +1,11 @@
 (function(window,angular){
 	angular.module('app')
 		//首页
-		.controller('indexCtrl', ['$scope','$rootScope','API','lyer','countDown', function($scope,$rootScope,API,lyer,countDown){
+		.controller('indexCtrl', ['$scope','$rootScope','API','lyer','userInfo','countDown','isBindCard', function($scope,$rootScope,API,lyer,userInfo,countDown,isBindCard){
 			$rootScope.body_class="index_bg";
 			console.log($rootScope.isLogin);
 			$scope.footerShow=true;
+			$rootScope.IsBindBank=false; 
 			$scope.titleShow=true;
 			$scope.tipShow=false;
 			
@@ -16,22 +17,50 @@
 			}
 			$scope.swiper();
 			
-			setTimeout(function(){
-						$scope.tipShow=true;
+
+			
+			
+			
+			setInterval(function(){
 						
-						$scope.$apply();//重置
-						console.log('$scope.tipShow='+$scope.tipShow);
+					//	api/yqsAssistant/Assistant/?id=1
+						var params ={'id':userInfo.get().UId};
+						//秘书提醒功能
+					API.qtInt('/api/yqsAssistant/Assistant/',params)
+					.success(function(rt){
+						rt=angular.fromJson(rt)
+						if(rt.Code == 0){
+							$scope.tipShow=true;
+							console.log('$scope.tipShow='+$scope.tipShow);
+							$scope.$apply();//重置
+							$scope.data = rt.Data;
+							
+							
+						}
+						else{
+								
+								return false;
+						}
+					});
+						
+						
+						
+						
 					},3000)
 			
 			//未登录 跳转到 登陆页
+			
 			if(!$rootScope.isLogin){
 				location.href="index.html#login";
 				console.log($rootScope.isLogin);
+				return false;
 			}
 			//判断用户是否绑定
-			if(!$rootScope.isBindCard){
+			isBindCard();
+			if(!$rootScope.IsBindBank){
 				console.log("去绑定银行卡");
 				location.href="index.html#bankcard";
+				return false;
 			}
 			// console.log(API);
 			var bannerParams = {
@@ -180,27 +209,27 @@
 					lyer.msg('请正确输入');
 					return false;
 				}
-				 else{
-				 	$scope.isbindcard=false;
+				
+				 	//$scope.isbindcard=false;
 				 	var params =angular.extend({'uid':userInfo.get().UId},$scope.params);
 				 	console.log(params);
 				 	//提交银行卡绑定 ;
-				API.qtInt('api/yqsuser/BandCard/',params)
+				API.qtInt('/api/yqsuser/BandCard/',params)
 					.success(function(rt){
 						rt=angular.fromJson(rt)
-						if(rt.Code == -1){
+						if(rt.Code == 0){
 							
 							$scope.data = rt.Data;
 							lyer.msg('绑定成功');
 						}
 						else{
-								lyer.msg('绑定格式有误，请先检查');
+								lyer.msg(rt.Msg);
 								return false;
 						}
 					});
 				
 				 	
-				 }
+				
 				
 			}
 
@@ -272,6 +301,8 @@
 			$scope.footerShow=true;
 			$scope.titleShow=true;
 			$scope.$on('unlogin',unlogin);
+			$scope.gzdialog=false;
+			
 			// 	if(angular.isObject(data.data) && data.data.Code == -2){
 			// 		lyer.msg(data.data.Msg,function(){
 			// 			$state.go('login');
