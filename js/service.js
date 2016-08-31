@@ -47,6 +47,22 @@
 			}
 		// };
 	}])
+	.service('playInfo', ['$cookieStore','$rootScope', function($cookieStore,$rootScope){
+		// return function(){
+			var set = function(user){
+				return $cookieStore.put('playInfo',user);
+				
+			}
+			var get = function(){
+				return $cookieStore.get('playInfo');
+			}
+
+			return {
+				set:set,
+				get:get
+			}
+		// };
+	}])
 	.factory('isLogin', ['API','userInfo','$rootScope', function(API,userInfo,$rootScope){
 
 		return function(){

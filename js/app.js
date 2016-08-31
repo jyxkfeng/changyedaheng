@@ -97,6 +97,12 @@
                 title:'自由模式',
                 controller:'ziyouCtrl'
             })
+            .state('touzi',{
+                url:'/touzi',
+                templateUrl:'views/qiantai/touzi.html',
+                title:'投资',
+                controller:'touziCtrl'
+            })
             
         $urlRouterProvider.otherwise("/index");
     }]);
