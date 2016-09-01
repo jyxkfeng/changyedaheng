@@ -452,6 +452,7 @@
 		$scope.warming=false;
 		$scope.upload_PicUrl=false;
 		$scope.cancel_btn=false;
+		$scope.status=0;
 		
 		
 		$scope.PlayCollection = $stateParams.PlayCollection;
@@ -472,13 +473,18 @@
 				rt = angular.fromJson(rt)
 				if(rt.Code == 0&&rt.Data.Data.length>0) {
 					//查询得到游戏进度
-					playInfo.set(rt.Data);
-					console.log(playInfo.get()[0]);
+					playInfo.set(rt.Data.Data);
+					$scope.playInfo=playInfo.get()[0];
+					console.log($scope.playInfo);
+					$scope.status=$scope.playInfo.PlayStatus;
 					
 					
 				} else {
 					//未查询到游戏进度,新建游戏
-					
+					$scope.status=-1;
+					playInfo.set(rt.Data);
+					$scope.playInfo=playInfo.get()
+					console.log($scope.playInfo);
 //					API.qtInt('/api/yqsPlay/Play/', params)
 //									.success(function(rt) {
 //										rt = angular.fromJson(rt)
@@ -495,7 +501,14 @@
 					return false;
 				}
 				
-				$scope.playInfo=playInfo.get()[0];
+				
+				
+				
+				
+				
+				
+				
+				
 				
 			});
 		

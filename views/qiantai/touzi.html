@@ -12,10 +12,33 @@
 		</style>
 		<header-directive></header-directive>
 			<div class="warp">
-			<div class="timer_box">
-				<i class="icon_clock"></i>剩余时间：{{EndTime}}
-			</div>
+			
+			
 			<div class="touzi_box">
+			<!--没有订单 预览订单-->
+			<div class="" ng-if="status==-1">
+				
+				<div class="input_box clearfix">
+				<i class="icon_touzi"></i><span>投资金额</span>
+				<input type="text" value="{{playInfo.PlayMoney | currency:'￥' }}"   />
+				</div>
+				<div class="input_box clearfix">
+				<i class="icon_sh"></i><span>收获</span>
+				<input type="text" value="{{playInfo.PlayIncome | currency:'¥'}}"  />
+				</div>
+				<div class="input_box clearfix">
+				<i class="icon_ghs"></i><span>理财规划书</span>
+				<input type="text" value="{{playInfo.PlayCharter}}" />
+				</div>
+				<div class="qrdk_btn">
+					确认
+				</div>
+			</div>
+			
+			
+			<div class="timer_box" ng-if="status!=-1">
+				<i class="icon_clock"></i>剩余时间：{{}}
+			</div>
 				<div class="input_box clearfix">
 				<i class="icon_touzi"></i><span>投资金额</span>
 				<input type="text" value="{{playInfo.Money | currency:'￥' }}"   />
@@ -29,7 +52,7 @@
 				<input type="text" value="{{playInfo.Charter}}" />
 				</div>
 				
-				<div class="input_box clearfix">
+				<div class="input_box clearfix" >
 				<i class="icon_username"></i><span>收款人姓名</span>
 				<input type="text" value="{{playInfo.AcceptRealName}}" />
 				</div>
