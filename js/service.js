@@ -104,6 +104,26 @@
 			}
 		};
 	}])
+	.factory('RefreshUserInfo', ['API','userInfo','$rootScope', function(API,userInfo,$rootScope){
+
+		return function(callback){
+			userid={'uid':userInfo.get().UId}
+			API.qtInt('/api/yqsuser/Refresh/', userid)
+					.success(function(rt) {
+						rt = angular.fromJson(rt)
+						if(rt.Code == 0) {
+							
+							userInfo.set(rt.Data);
+							console.log(userInfo.get());
+							
+						} else {
+							return false;
+						}
+						
+					});
+					
+		};
+	}])
 	.factory('lyer', [function(){
 		// return function(msg){
 

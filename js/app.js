@@ -11,7 +11,7 @@
             if(toState.title){
                 $rootScope.pageTitle = toState.title;
             }
-            console.log(userInfo.get());
+           // console.log(userInfo.get());
             if(userInfo.get()){
                 $rootScope.isLogin = true;
                 $rootScope.token = userInfo.get().Token;
@@ -98,7 +98,7 @@
                 controller:'ziyouCtrl'
             })
             .state('touzi',{
-                url:'/touzi',
+                url:'/touzi/:Playid?PlayCollection?PlayStage',
                 templateUrl:'views/qiantai/touzi.html',
                 title:'投资',
                 controller:'touziCtrl'

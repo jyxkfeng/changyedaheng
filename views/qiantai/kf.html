@@ -31,20 +31,20 @@
 			</div>
 			<div class="lblist">
 				<ul class="clearfix">
-					<li class="active">账户问题</li>
-					<li>提现问题</li>
-					<li>推荐问题</li>
-					<li>系统问题</li>
-					<li>其他</li>
+					<li ng-class="{true:'active',false:''}[type==1]" class="active" ng-click="typeSelect(1)">账户问题</li>
+					<li ng-class="{true:'active',false:''}[type==2]"  ng-click="typeSelect(2)">提现问题</li>
+					<li ng-class="{true:'active',false:''}[type==3]"  ng-click="typeSelect(3)">推荐问题</li>
+					<li ng-class="{true:'active',false:''}[type==4]"  ng-click="typeSelect(4)">系统问题</li>
+					<li ng-class="{true:'active',false:''}[type==5]"  ng-click="typeSelect(5)">其他</li>
 					
 				</ul>
 			</div>
 			<div class="title">
 				您的问题
 			</div>
-			<textarea class="kf_description" placeholder="这里写下您遇到的问题"></textarea>
+			<textarea class="kf_description" placeholder="这里写下您遇到的问题" ng-model="MyQuestion"></textarea>
 			
-			<div class="qrdk_btn">
+			<div class="qrdk_btn" ng-click="sbQuestion()">
 				提交
 			</div>
 		</div>
