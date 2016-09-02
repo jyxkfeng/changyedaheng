@@ -108,7 +108,7 @@
 				// name: '',
 				// priority: 1,
 				// terminal: true,
-				 scope:true, // {} = isolate, true = child, false/undefined = no change
+				 //scope:true, // {} = isolate, true = child, false/undefined = no change
 				// controller: function($scope, $element, $attrs, $transclude) {},
 				// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 				restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
@@ -119,6 +119,27 @@
 				// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 				link: function($scope, iElm, iAttrs, controller) {
 					$scope.img=$scope.playInfo.PicUrl;
+					$scope.UpLoadPic=function(){
+						document.querySelector('#localfile').click();
+					}
+					$scope.fileNameChanged=function(sender){
+						$scope.img=document.querySelector('#localfile').value;
+						var objPreview = document.getElementById('img_src'); 
+						if( !sender.value.match( /.jpg|.jpeg|.gif|.png|.bmp/i ) ){ 
+								console.log('图片格式无效！'); 
+								return false; 
+						}
+						if( sender.files && sender.files[0] ){ //这里面就是chrome和ff可以兼容的了 
+							// Firefox 因安全性问题已无法直接通过 input[file].value 获取完整的文件路径 
+							objPreview.src = window.URL.createObjectURL(sender.files[0]);
+							//objPreview.src = sender.files[0].getAsDataURL(); 
+						}
+						
+						
+						
+						//objPreview.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = imgSrc; 
+						
+					}
 					
 				}
 			};
