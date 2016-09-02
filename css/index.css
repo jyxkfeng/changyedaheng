@@ -130,7 +130,7 @@ body{ min-height: 100vh;}
 .timer_box{ height: .4rem; line-height: .4rem; background: #c7d5fa; color: #4a4ee2; padding-left: 50%; font-size: .12rem}
 .timer_box .icon_clock{ background: url(../images/icon_clock.png) center center no-repeat; width: .4rem; height: .4rem; background-size:.16rem .16rem; float: left;}
 
-.touzi_box{ margin-top: .1rem; padding: 0 .15rem;background: #FFFFFF;}
+.touzi_box{ margin-top: .1rem; padding: 0 .15rem;background: #FFFFFF;min-height: 100vh;}
 .touzi_box .input_box{ width: 100%; height: .46rem; line-height: .45rem; border-bottom: 1px solid #D5D5D5; }
 .touzi_box .input_box i{ float: left; width: .45rem; height: .45rem;}
 .touzi_box .input_box span{ float: left;height: .45rem;line-height: .45rem;font-size: .14rem; color: #666666; }

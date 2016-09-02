@@ -68,15 +68,15 @@
 				</div>
 			</div>
 			
-			<div class="mask"></div>
-			<div class="dialog">
+			<div class="mask" ng-show="newGame"></div>
+			<div class="dialog" ng-show="newGame">
 				<div class="close_btn"></div>
 				<div class="tltle">警告！</div>
 				<div class="des">检查订单是否有误，检查无误请点确认。</div>
-				<div class="btn">确定</div>
+				<div class="btn" ng-click="buildOrder()">确定</div>
 			</div>
 			
-			<div class="qrdk_btn">
+			<!--<div class="qrdk_btn">
 				确认
 			</div>
 			
@@ -86,7 +86,7 @@
 			
 			<div class="qrdk_btn">
 				确认打款
-			</div>
+			</div>-->
 			
 		</div>
 	</body>

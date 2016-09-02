@@ -1,0 +1,18 @@
+
+<!-- saved from url=(0055)http://1.m.jdd.com/views/directive/headerDirective.html -->
+<html><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>
+	<body>
+
+	<form enctype="multipart/form-data" hidden="hidden"  method="POST">
+			<input type="hidden" name="MAX_FILE_SIZE" value="6000000">
+			<input name="userfile" type="file"  id="localfile"  onchange="onUploadImgChange(this)"/> 
+			<input type="submit" value="Send File">
+		</form>
+		<div class="upload_btn" ng-click="UpLoadPic()">
+			<span ng-if="img!=''">
+				<img src="{{img}}"  />
+			</span>
+			
+		</div>
+</body></html>

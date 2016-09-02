@@ -380,6 +380,7 @@
 			//想玩的层级大于可玩的层级
 			if(PlayCollection > $scope.PlayCollection) {
 				console.log("你没资格玩");
+				lyer.msg('你还未获取此关游戏的资格.请努力!');
 				return false;
 			}
 			////想玩的层级在第一层级
@@ -433,6 +434,13 @@
 		$rootScope.body_class = "ct_game_bg";
 		$scope.footerShow = true;
 		$scope.titleShow = true;
+		$scope.playGame = function(PlayCollection, PlayStage) {
+			$state.go('touzi',{
+						Playid:2,
+						PlayCollection:PlayCollection,
+						PlayStage:PlayStage
+					})
+		}
 
 
 	}])
@@ -479,12 +487,16 @@
 					$scope.status=$scope.playInfo.PlayStatus;
 					
 					
+					
 				} else {
 					//未查询到游戏进度,新建游戏
 					$scope.status=-1;
 					playInfo.set(rt.Data);
 					$scope.playInfo=playInfo.get()
 					console.log($scope.playInfo);
+					
+					
+					
 //					API.qtInt('/api/yqsPlay/Play/', params)
 //									.success(function(rt) {
 //										rt = angular.fromJson(rt)
@@ -511,49 +523,58 @@
 				
 				
 			});
-		
-		 //0 新方案     10 以匹配    50 以上传    70 后台确认   80  用户确认  100 已完成
-		
-		if(!angular.isUndefined(userInfo.get())){
-			//console.log("方案存在");
-			//console.log(playInfo.get());
 			
-			//$scope.playInfo=playInfo.get()[0];
-//			$scope.PlayStatus=$scope.playInfo.PlayStatus;
-//			if($scope.PlayStatus==0){
-//				
-//			}
-//			if($scope.PlayStatus=10){
-//				$scope.cancel_btn=true;
-//			}
-//			if($scope.PlayStatus=50){
-//				
-//			}
-//			if($scope.PlayStatus=70){
-//				
-//			}
-//			if($scope.PlayStatus=80){
-//				
-//			}
-//			if($scope.PlayStatus=100){
-//				
-//			}
-//			
-//			setInterval(function(){
-//				var now = new Date(); 
-//				var endDate = new Date($scope.playInfo.StartTime); 
-//				var leftTime=endDate.getTime()+1000*60*60*24-now.getTime(); 
-//				var leftsecond = parseInt(leftTime/1000); 
-//				//var day1=parseInt(leftsecond/(24*60*60*6)); 
-//				var day1=Math.floor(leftsecond/(60*60*24)); 
-//				var hour=Math.floor((leftsecond-day1*24*60*60)/3600); 
-//				var minute=Math.floor((leftsecond-day1*24*60*60-hour*3600)/60); 
-//				var second=Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60); 
-//				$scope.EndTime=hour+":"+minute+":"+second;
-//				$scope.$apply();
-//			},1000)
+		  $scope.buildNewGame=function(){
+		  	$scope.warming=true;
+		  	
+		  }
+		  $scope.buildOrder=function(){
+		  	var params = {
+				'uid': userInfo.get().UId,
+				'playid':$scope.Playid,
+				'playcollection': $scope.PlayCollection,
+				'playstage': $scope.PlayStage
+			};
+			//确认无误,创建订单
+			API.qtInt('/api/yqsPlay/Play/', params)
+				.success(function(rt) {
+					rt = angular.fromJson(rt)
+					if(rt.Code == 0) {
+						console.log(rt);
+						$state.reload()
+
+					} else {
+						lyer.msg(rt.Msg);
+						return false;
+					}
+				});
 			
-		}
+			$scope.warming=false;
+		  }
+		  $scope.cacel_build=function(){
+		  	//反悔,取消创建订单
+		  	$scope.warming=false;
+		  }
+		
+		 //0 新方案     50 以匹配    70 付款上传成功     100 已完成
+		
+		
+						
+		setInterval(function(){
+				var now = new Date(); 
+				var endDate = new Date($scope.playInfo.StartTime); 
+				var leftTime=endDate.getTime()+1000*60*60*24-now.getTime(); 
+				var leftsecond = parseInt(leftTime/1000); 
+				//var day1=parseInt(leftsecond/(24*60*60*6)); 
+				var day1=Math.floor(leftsecond/(60*60*24)); 
+				var hour=Math.floor((leftsecond-day1*24*60*60)/3600); 
+				var minute=Math.floor((leftsecond-day1*24*60*60-hour*3600)/60); 
+				var second=Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60); 
+				$scope.EndTime=hour+":"+minute+":"+second;
+				$scope.$apply();
+			},1000)
+			
+
 	}])
 
 	//个人中心
