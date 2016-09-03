@@ -1,7 +1,7 @@
 (function(window,angular){
 	angular.module('app')
 		//一级header
-		.directive('footerDirective', ['$state', function($state){
+		.directive('footerDirective', ['$state','$rootScope', function($state,$rootScope){
 			// Runs during compile
 			return {
 				// name: '',
@@ -19,19 +19,26 @@
 				link: function($scope, iElm, iAttrs, controller) {
 						$scope.gohome=function(){
 							console.log('index');
-							location.href="index.html#index"
+							$rootScope.menuindex=1;
+							$state.go('index');
+							
+							
+							
 						}
 						$scope.gogame=function(){
 							console.log('gamelistCtrl');
-							location.href="index.html#gamelist"
+							$rootScope.menuindex=2;
+							$state.go('gamelist');
 						}
 						$scope.gokf=function(){
 							console.log('kf');
-							location.href="index.html#kf"
+							$rootScope.menuindex=3;
+							$state.go('kf');
 						}
 						$scope.gomy=function(){
 							console.log('myhome');
-							location.href="index.html#myhome"
+							$rootScope.menuindex=4;
+							$state.go('myhome');
 						}
 					// console.log($scope.stateName);
 				}
@@ -102,7 +109,7 @@
 				}
 			};
 		}])
-		.directive('uploadpicDirective', [function(){
+		.directive('uploadpicDirective', ['$state','$http','lyer',function($state,$http,lyer){
 			// Runs during compile
 			return {
 				// name: '',
@@ -124,7 +131,10 @@
 					}
 					$scope.fileNameChanged=function(sender){
 						$scope.img=document.querySelector('#localfile').value;
+						$scope.upFile=document.querySelector('#localfile').value;
 						var objPreview = document.getElementById('img_src'); 
+						//document.getElementById('img_submit').click();
+						
 						if( !sender.value.match( /.jpg|.jpeg|.gif|.png|.bmp/i ) ){ 
 								console.log('图片格式无效！'); 
 								return false; 
@@ -132,7 +142,57 @@
 						if( sender.files && sender.files[0] ){ //这里面就是chrome和ff可以兼容的了 
 							// Firefox 因安全性问题已无法直接通过 input[file].value 获取完整的文件路径 
 							objPreview.src = window.URL.createObjectURL(sender.files[0]);
-							//objPreview.src = sender.files[0].getAsDataURL(); 
+							//objPreview.src = sender.files[0].getAsDataURL();
+							//document.querySelector('#schemeid').value=$scope.playInfo.SchemeId;
+							//document.querySelector('#img_submit').click();
+							 var params = {
+									userfile:sender.files[0]
+								}
+						$http({
+				            method: 'POST',
+				            url: 'http://api.cydhch.com/api/UpLoadFile/UpLoadPic/',
+				            headers: {
+				                'Content-Type':undefined
+				            },
+				            data: params,
+				            transformRequest: function (data, headersGetter) {
+				                var formData = new FormData();
+				                angular.forEach(data, function (value, key) {
+				                    formData.append(key, value);
+				                });
+				
+				                var headers = headersGetter();
+				                delete headers['Content-Type'];
+				
+				                return formData;
+				            }
+				        })
+							// $http.post('http://api.cydhch.com/api/UpLoadFile/UpLoadPic/',params)
+								.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											console.log(rt);
+											lyer.msg(rt.Msg,function(){
+												$state.reload()
+											});					
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+//							 	API.ptInt('/api/UpLoadFile/UpLoadPic/', params)
+//									.success(function(rt) {
+//										rt = angular.fromJson(rt)
+//										if(rt.Code == 0) {
+//											console.log(rt);
+//											lyer.msg(rt.Msg,function(){
+//												$state.reload()
+//											});					
+//										} else {
+//											lyer.msg(rt.Msg);
+//											return false;
+//										}
+//									});
 						}
 						
 						

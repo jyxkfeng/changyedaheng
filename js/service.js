@@ -23,11 +23,17 @@
 		var qtInt = function(host,params){
 			return $http.get(hostName+host,{params:params});
 		}
+		
+		var ptInt = function(host,params){
+			return $http.post(hostName+host,{params:params});
+		}
 		// var 
 
 		return {
 			qtInt:qtInt,
-			ucInt:ucInt
+			ucInt:ucInt,
+			ptInt:ptInt
+			
 		}
 			
 	}])

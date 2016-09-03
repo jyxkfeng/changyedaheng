@@ -4,10 +4,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>
 	<body>
 
-	<form enctype="multipart/form-data" hidden="hidden">
+	<form enctype="multipart/form-data" method="POST" action="http://api.cydhch.com/api/UpLoadFile/UpLoadPic/" hidden="hidden">
 			<input type="hidden" name="MAX_FILE_SIZE" value="6000000">
+			<input type="hidden" name="id" value="" id="schemeid" />
 			<input name="userfile" type="file"  ng-model="upFile"   id="localfile" onchange="angular.element(this).scope().fileNameChanged(this)""/> 
-			<input type="submit" value="Send File">
+			<input type="submit" id="img_submit" value="Send File">
 		</form>
 		<div class="upload_btn" ng-click="UpLoadPic()">
 			

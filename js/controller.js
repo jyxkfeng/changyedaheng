@@ -79,11 +79,13 @@
 
 		}])
 		//注册
-		.controller('registerCtrl', ['$scope','$state', '$rootScope', 'API', 'lyer', 'md5', function($scope,$state, $rootScope, API, lyer, md5) {
+		.controller('registerCtrl', ['$scope','$state', '$rootScope', 'API', 'lyer', 'md5','$stateParams', function($scope,$state, $rootScope, API, lyer, md5,$stateParams) {
 			$rootScope.body_class = "login_bg";
 			$scope.titleShow = true;
 			$scope.params = {};
 			$scope.isRegister = false;
+			$scope.params.reference = $stateParams.ReferenceRealName;
+		    $scope.params.referencetel = $stateParams.ReferenceTel;
 			$scope.zhuce = function() {
 
 				console.log('register');
@@ -235,21 +237,20 @@
 		// })
 	}])
 
-	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state', 'lyer', 'unlogin', function($scope, $rootScope, $state, lyer, unlogin) {
-		// unlogin($scope);
+	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state', 'lyer','userInfo',function($scope, $rootScope, $state, lyer,userInfo) {
 		$rootScope.body_class = "myhone_bg";
 		$scope.footerShow = true;
 		$scope.titleShow = true;
-		$scope.$on('unlogin', unlogin);
-		// 	if(angular.isObject(data.data) && data.data.Code == -2){
-		// 		lyer.msg(data.data.Msg,function(){
-		// 			$state.go('login');
-		// 		})
-		// 		return false;
-		// 	}else if(angular.isObject(data.data) && (data.data.Code != -2 || data.data.Code !=0)){
-		// 		lyer.msg(data.data.Msg);
-		// 	}
-		// })
+		if(!$rootScope.isLogin) {
+			$state.go('login');
+			console.log($rootScope.isLogin);
+			return false;
+		}
+		$scope.userInfo=userInfo.get();
+		$scope.tjlink=function(){
+			lyer.msg('cydhch.com/index.html#/register/'+$scope.userInfo.Name+'?ReferenceTel=18912608450');
+		}
+		
 	}])
 
 	.controller('kfCtrl', ['$scope', '$rootScope','userInfo', 'API','$state', 'lyer', 'unlogin', function($scope, $rootScope,userInfo,API, $state, lyer, unlogin) {

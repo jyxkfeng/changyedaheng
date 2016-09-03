@@ -44,7 +44,7 @@
 
         $stateProvider
             .state('register',{
-                url:'/register',
+                url:'/register/:ReferenceRealName?ReferenceTel',
                 templateUrl:'views/qiantai/register.html',
                 title:'注册',
                 controller:'registerCtrl'

@@ -11,9 +11,12 @@
 	<body>
 			
 			
-			<p>
-			<input value="" />
-			</p>
+			<form enctype="multipart/form-data" method="post" action="http://api.cydhch.com/api/UpLoadFile/UpLoadPic/">
+			
+			
+			<input name="userfile" type="file"  ng-model="upFile"/> 
+			<input type="submit" id="img_submit" value="Send File">
+		</form>
 	
 	</body>
 </html>
