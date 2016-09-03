@@ -87,13 +87,28 @@
 				</div>
 				<div class="updata_contant" ng-if="status==50">
 					<uploadpic-Directive></uploadpic-Directive>
+					
 				</div>
-				<div class="qrdk_btn" ng-if="!cancel_btn">
-				确认打款
-				</div>
+				
 			</div>
 			
-			
+			<div class="" ng-if="status==70||status==100">
+				<div class="input_box clearfix" >
+				<i class="icon_username"></i><span>收款人姓名</span>
+				<input type="text" value="{{playInfo.AcceptRealName}}" />
+				</div>
+				<div class="input_box clearfix">
+					<i class="icon_tel"></i><span>电话</span>
+					<input value="{{playInfo.AcceptTel}}"  type="text"  />
+				</div>
+				
+				<div class="qrdk_btn cancel_btn" ng-if="status==70">
+					等待对方确认收款
+				</div>
+				<div class="qrdk_btn cancel_btn" ng-if="status==100">
+					对方已收款
+				</div>
+			</div>
 			
 				<!--<div class="input_box clearfix">
 				<i class="icon_touzi"></i><span>投资金额</span>
