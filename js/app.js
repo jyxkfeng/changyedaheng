@@ -103,6 +103,12 @@
                 title:'投资',
                 controller:'touziCtrl'
             })
+            .state('tixian',{
+                url:'/tixian',
+                templateUrl:'views/qiantai/tixian.html',
+                title:'提现',
+                controller:'tixianCtrl'
+            })
             
         $urlRouterProvider.otherwise("/index");
     }]);

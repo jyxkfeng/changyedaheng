@@ -20,6 +20,7 @@
 			if($rootScope.isLogin) {
 				setInterval(function() {
 					//	api/yqsAssistant/Assistant/?id=1
+					console.log(userInfo.get());
 					var params = {
 						'id': userInfo.get().UId
 					};
@@ -30,8 +31,9 @@
 							if(rt.Code == 0) {
 								$scope.tipShow = true;
 								console.log('$scope.tipShow=' + $scope.tipShow);
-								$scope.$apply(); //重置
+								
 								$scope.data = rt.Data;
+								//$scope.$apply(); //重置
 							} else {
 								return false;
 							}
@@ -237,7 +239,7 @@
 		// })
 	}])
 
-	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state', 'lyer','userInfo',function($scope, $rootScope, $state, lyer,userInfo) {
+	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state','$cookieStore', 'lyer','userInfo',function($scope, $rootScope, $state,$cookieStore, lyer,userInfo) {
 		$rootScope.body_class = "myhone_bg";
 		$scope.footerShow = true;
 		$scope.titleShow = true;
@@ -250,6 +252,12 @@
 		$scope.tjlink=function(){
 			lyer.msg('cydhch.com/index.html#/register/'+$scope.userInfo.Name+'?ReferenceTel=18912608450');
 		}
+		$scope.logout = function() {
+				$cookieStore.remove('userInfo');
+				$cookieStore.remove('playInfo');
+				$rootScope.isLogin = false;
+				$state.go('login');
+			}
 		
 	}])
 
@@ -445,6 +453,36 @@
 
 
 	}])
+	
+	//体现
+	.controller('tixianCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams) {
+		// unlogin($scope);
+		$rootScope.body_class = "tixian_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
+		$scope.userInfo=userInfo.get();
+		$scope.uid=$scope.userInfo.UId;
+		//体现前先进行查询
+			API.qtInt('/api/yqsfund/fundspeed/',{uid:$scope.uid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0&&rt.Data.Data.length>0) {
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		$scope.tixian = function() {
+			var params= {
+						uid:$scope.uid,
+						money:$scope.money
+					}
+			console.log(params);
+		}
+
+
+	}])
 	//投资
 	.controller('touziCtrl', ['$scope', '$rootScope', 'API', 'userInfo','playInfo', '$state', 'lyer', '$stateParams',function($scope, $rootScope, API, userInfo, playInfo,$state, lyer, $stateParams) {
 		// unlogin($scope);
@@ -487,15 +525,21 @@
 					$scope.status=$scope.playInfo.PlayStatus;
 					setInterval(function(){
 						var now = new Date(); 
+						$scope.playInfo.StartTime=$scope.playInfo.StartTime.replace(/\-/g,'/');
 						var endDate = new Date($scope.playInfo.StartTime); 
 						var leftTime=endDate.getTime()+1000*60*60*24-now.getTime(); 
 						var leftsecond = parseInt(leftTime/1000); 
+						if(leftTime<0){
+							$scope.EndTime="已超时";
+						}
+						else{
 						//var day1=parseInt(leftsecond/(24*60*60*6)); 
 						var day1=Math.floor(leftsecond/(60*60*24)); 
 						var hour=Math.floor((leftsecond-day1*24*60*60)/3600); 
 						var minute=Math.floor((leftsecond-day1*24*60*60-hour*3600)/60); 
 						var second=Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60); 
 						$scope.EndTime=hour+":"+minute+":"+second;
+						}
 						$scope.$apply();
 					},1000)
 					
