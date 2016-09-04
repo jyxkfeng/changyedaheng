@@ -225,18 +225,7 @@
 			$state.go('login');
 			console.log($rootScope.isLogin);
 			return false;
-		}
-
-		$scope.$on('unlogin', unlogin);
-		// 	if(angular.isObject(data.data) && data.data.Code == -2){
-		// 		lyer.msg(data.data.Msg,function(){
-		// 			$state.go('login');
-		// 		})
-		// 		return false;
-		// 	}else if(angular.isObject(data.data) && (data.data.Code != -2 || data.data.Code !=0)){
-		// 		lyer.msg(data.data.Msg);
-		// 	}
-		// })
+		}	
 	}])
 
 	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state','$cookieStore', 'lyer','userInfo',function($scope, $rootScope, $state,$cookieStore, lyer,userInfo) {
@@ -251,6 +240,9 @@
 		$scope.userInfo=userInfo.get();
 		$scope.tjlink=function(){
 			lyer.msg('cydhch.com/index.html#/register/'+$scope.userInfo.Name+'?ReferenceTel=18912608450');
+		}
+		$scope.qianbao_link=function(){
+			$state.go('qianbao');
 		}
 		$scope.logout = function() {
 				$cookieStore.remove('userInfo');
@@ -462,22 +454,43 @@
 		$scope.titleShow = true;
 		$scope.userInfo=userInfo.get();
 		$scope.uid=$scope.userInfo.UId;
+		
 		//体现前先进行查询
 			API.qtInt('/api/yqsfund/fundspeed/',{uid:$scope.uid})
 									.success(function(rt) {
 										rt = angular.fromJson(rt)
 										if(rt.Code == 0&&rt.Data.Data.length>0) {
+											lyer.msg('您有提现订单,不能同时提现',function(){
+												$state.go('qianbao');
+											});
+											$scope.userInfo=angular.extend({},rt.Data);
 											console.log(rt);
 										} else {
-											lyer.msg(rt.Msg);
+											//lyer.msg(rt.Msg);
 											return false;
 										}
 									});
-		$scope.tixian = function() {
+		$scope.tixian= function() {
 			var params= {
 						uid:$scope.uid,
-						money:$scope.money
+						money:$scope.txmoney
 					}
+			if(!!$scope.txmoney&&$scope.txmoney<$scope.userInfo.Money){
+				console.log('true');
+					API.qtInt('/api/yqsfund/fund/',params)
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0&&rt.Data.Data.length>0) {
+											lyer.msg('成功');
+										} else {
+											//lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+			}
+			else{
+				lyer.msg('出错啦,请检查您的可用余额');
+			}
 			console.log(params);
 		}
 
@@ -549,35 +562,9 @@
 					$scope.status=-1;
 					playInfo.set(rt.Data);
 					$scope.playInfo=playInfo.get()
-					console.log($scope.playInfo);
-					
-					
-					
-//					API.qtInt('/api/yqsPlay/Play/', params)
-//									.success(function(rt) {
-//										rt = angular.fromJson(rt)
-//										if(rt.Code == 0) {
-//											console.log(rt);
-//											$state.reload()
-//					
-//										} else {
-//											lyer.msg(rt.Msg);
-//											return false;
-//										}
-//									});
-					
+					console.log($scope.playInfo);					
 					return false;
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+		}				
 			});
 			
 		  $scope.buildNewGame=function(){
@@ -620,7 +607,33 @@
 			
 
 	}])
+	.controller('qianbaoCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams) {
+		// unlogin($scope);
+		$rootScope.body_class = "qianbao_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
+		$scope.userInfo=userInfo.get();
+		$scope.uid=$scope.userInfo.UId;
+		//体现前先进行查询
+			API.qtInt('/api/yqsuser/Refresh/',{uid:$scope.uid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		$scope.gotixian=function(){
+			$state.go('tixian');
+		}
+	
 
+
+	}])
+	
 	//个人中心
 	.controller('userIndexCtrl', ['$scope', '$rootScope', '$state', 'API', 'lyer', '$cookieStore', function($scope, $rootScope, $state, API, lyer, $cookieStore) {
 

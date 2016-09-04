@@ -109,6 +109,12 @@
                 title:'提现',
                 controller:'tixianCtrl'
             })
+            .state('qianbao',{
+                url:'/qianbao',
+                templateUrl:'views/qiantai/qianbao.html',
+                title:'钱包',
+                controller:'qianbaoCtrl'
+            })
             
         $urlRouterProvider.otherwise("/index");
     }]);

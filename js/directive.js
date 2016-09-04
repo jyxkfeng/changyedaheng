@@ -124,17 +124,19 @@
 				// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
 				link: function($scope, iElm, iAttrs, controller) {
 					    $scope.ablebtn=false;
+					    $scope.host='http://api.cydhch.com';
 						$scope.UpLoadPic = function() {
 							document.querySelector('#localfile').click();
 						}
 						$scope.fileNameChanged = function(sender) {
+							
 							if(!sender.value.match(/.jpg|.jpeg|.gif|.png|.bmp/i)) {
 								console.log('图片格式无效！');
 								return false;
 							}
 							if(sender.files && sender.files[0]) { //这里面就是chrome和ff可以兼容的了 
 								var params = {
-									userfile: sender.files[0]
+									imgpay: sender.files[0]
 								}
 								$http({
 										method: 'POST',
@@ -160,7 +162,9 @@
 										if(rt.Code == 0) {
 											console.log(rt);
 											lyer.msg(rt.Msg, function() {
-												$scope.pic = 'http://api.cydhch.com/Pic/Payment/temp/' + rt.Data;
+												$scope.host
+												$scope.pic = rt.Data;
+												$scope.locpic=$scope.host+rt.Data;
 												
 												 $scope.ablebtn=true;
 												//$state.reload()
