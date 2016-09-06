@@ -244,6 +244,15 @@
 		$scope.qianbao_link=function(){
 			$state.go('qianbao');
 		}
+		$scope.myorderlist=function(){
+			$state.go('orderlist');
+		}
+		$scope.mydetail=function(i){
+			//1 契约书 2奖券 3团队
+			
+			$state.go('mydetail',{type:i});
+			
+		}
 		$scope.logout = function() {
 				$cookieStore.remove('userInfo');
 				$cookieStore.remove('playInfo');
@@ -459,16 +468,10 @@
 			API.qtInt('/api/yqsfund/fundspeed/',{uid:$scope.uid})
 									.success(function(rt) {
 										rt = angular.fromJson(rt)
-										if(rt.Code == 0&&rt.Data.Data.length>0) {
-											lyer.msg('您有提现订单,不能同时提现',function(){
-												$state.go('qianbao');
-											});
-											$scope.userInfo=angular.extend({},rt.Data);
+										$scope.userInfo=angular.extend({},rt.Data);
 											console.log(rt);
-										} else {
-											//lyer.msg(rt.Msg);
-											return false;
-										}
+											
+										
 									});
 		$scope.tixian= function() {
 			var params= {
@@ -481,9 +484,13 @@
 									.success(function(rt) {
 										rt = angular.fromJson(rt)
 										if(rt.Code == 0&&rt.Data.Data.length>0) {
-											lyer.msg('成功');
+											lyer.msg(rt.Msg,function(){
+												$state.go('qianbao');
+											});
 										} else {
-											//lyer.msg(rt.Msg);
+											lyer.msg(rt.Msg,function(){
+												$state.go('qianbao');
+											});
 											return false;
 										}
 									});
@@ -493,9 +500,101 @@
 			}
 			console.log(params);
 		}
+		
+	
 
 
 	}])
+	//提现列表
+	.controller('tixianlistCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams) {
+		$rootScope.body_class = "order_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
+		if(!$rootScope.isLogin) {
+			$state.go('login');
+			console.log($rootScope.isLogin);
+			return false;
+		} 
+		$scope.userInfo=userInfo.get();
+		$scope.uid=$scope.userInfo.UId;
+		//进行查询
+			API.qtInt('/api/yqsfund/AllFund/',{uid:$scope.uid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											
+											
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		
+		$scope.tixiandetail=function(i){
+			console.log(i);
+			$state.go('tixiandetail',{
+				fundId:i
+			});
+			
+		}
+		
+	}])
+	
+		//提现详情
+	.controller('tixiandetailCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams','$cookieStore', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams,$cookieStore) {
+		$rootScope.body_class = "order_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
+		if(!$rootScope.isLogin) {
+			$state.go('login');
+			console.log($rootScope.isLogin);
+			return false;
+		} 
+		$scope.userInfo=userInfo.get();
+		$scope.uid=$scope.userInfo.UId;
+		$scope.fundid = $stateParams.fundId;
+		//进行查询
+			API.qtInt('/api/yqsfund/fundspeed/',{fundid:$scope.fundid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		$scope.querySK=function(uid,fundid){
+			console.log(uid);
+			console.log(fundid);
+			//确认收款
+			API.qtInt('/api/yqsfund/FundConform/',{uid:uid,fundid:fundid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											$cookieStore.remove('userInfo');
+											userInfo.set($scope.userInfo);
+											lyer.msg(rt.Msg,function(){
+												$state.go('tixianlist');												
+											})
+											
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+			
+		}
+	
+		
+	}])
+	
 	//投资
 	.controller('touziCtrl', ['$scope', '$rootScope', 'API', 'userInfo','playInfo', '$state', 'lyer', '$stateParams',function($scope, $rootScope, API, userInfo, playInfo,$state, lyer, $stateParams) {
 		// unlogin($scope);
@@ -583,8 +682,11 @@
 				.success(function(rt) {
 					rt = angular.fromJson(rt)
 					if(rt.Code == 0) {
+						lyer.msg(rt.Msg,function(){
+							$state.reload()
+						})
 						console.log(rt);
-						$state.reload()
+						
 
 					} else {
 						lyer.msg(rt.Msg);
@@ -607,7 +709,60 @@
 			
 
 	}])
-	.controller('qianbaoCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams) {
+	
+	//订单列表
+	.controller('orderlistCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams) {
+		$rootScope.body_class = "order_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
+		if(!$rootScope.isLogin) {
+			$state.go('login');
+			console.log($rootScope.isLogin);
+			return false;
+		} 
+		$scope.userInfo=userInfo.get();
+		$scope.uid=$scope.userInfo.UId;
+		//进行查询
+			API.qtInt('/api/yqsuser/MyOrder/',{uid:$scope.uid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											
+											$scope.order ='OrderId';
+											
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		$scope.querylink=function(str){
+			$scope.query=str;
+		}
+
+		$scope.opendetail=function(OrderType,PlayCollection,PlayId,PlayStage,OrderId){
+			console.log(OrderType);
+			console.log(PlayCollection);
+			console.log(PlayId);
+			console.log(PlayStage);
+			console.log(OrderId);
+			if(OrderType==3){
+				$state.go('tixiandetail',{
+				fundId:OrderId
+				});
+			}
+			else{
+				$state.go('touzi',{
+						Playid:PlayId,
+						PlayCollection:PlayCollection,
+						PlayStage:PlayStage
+					})
+			}
+		}
+	}])
+	
+	.controller('qianbaoCtrl', ['$scope', '$rootScope','API', 'userInfo', '$state', 'lyer', '$stateParams','$cookieStore', function($scope, $rootScope,API, userInfo,$state, lyer,$stateParams,$cookieStore) {
 		// unlogin($scope);
 		$rootScope.body_class = "qianbao_bg";
 		$scope.footerShow = true;
@@ -620,6 +775,8 @@
 										rt = angular.fromJson(rt)
 										if(rt.Code == 0) {
 											$scope.userInfo=angular.extend({},rt.Data);
+											$cookieStore.remove('userInfo');
+											userInfo.set($scope.userInfo);
 											console.log(rt);
 										} else {
 											lyer.msg(rt.Msg);
@@ -629,35 +786,57 @@
 		$scope.gotixian=function(){
 			$state.go('tixian');
 		}
-	
+		
+		$scope.tixianlist=function(){
+			$state.go('tixianlist');
+		}
 
 
 	}])
 	
-	//个人中心
-	.controller('userIndexCtrl', ['$scope', '$rootScope', '$state', 'API', 'lyer', '$cookieStore', function($scope, $rootScope, $state, API, lyer, $cookieStore) {
+	//个人详情
+	.controller('mydetailCtrl', ['$scope', '$rootScope', '$state','userInfo', 'API', 'lyer', '$cookieStore','$stateParams',function($scope, $rootScope, $state,userInfo, API, lyer, $cookieStore,$stateParams) {
+				$rootScope.body_class = "qianbao_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
+			$scope.type = $stateParams.type;
+			
+			console.log($scope.type);
+			$scope.userInfo=userInfo.get();
+			$scope.uid=$scope.userInfo.UId;
+			API.qtInt('/api/yqsuser/Refresh/',{uid:$scope.uid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											$cookieStore.remove('userInfo');
+											userInfo.set($scope.userInfo);
+											console.log(rt);
+											
+											
+											
+											
+											
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		if($scope.type==3){
+			API.qtInt('/api/yqsuser/Myteam/',{uid:$scope.uid})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.TeamInfo=angular.extend({},rt.Data);
+											console.log(rt);
 
-			// console.log($rootScope.isLogin);
-			//判断是否登陆
-
-			var params = {
-					action: 1005,
-					params: {}
-				}
-				//获取用户信息;
-			API.ucInt(params)
-				.success(function(rt) {
-					if(rt.Code == 0) {
-						$scope.data = rt.Data;
-					}
-				});
-
-			$scope.logout = function() {
-				$cookieStore.remove('userInfo');
-				$rootScope.isLogin = false;
-				$rootScope.token = '';
-				$state.go('index');
-			}
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+		}
+	
 		}])
 		//个人资料
 	.controller('userDetailCtrl', ['$scope', '$rootScope', '$state', 'API', 'lyer', '$base64', 'userInfo', function($scope, $rootScope, $state, API, lyer, $base64, userInfo) {

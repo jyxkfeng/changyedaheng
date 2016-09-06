@@ -11,25 +11,29 @@
 			#dvHeader{ background:none; border: none;}
 		</style>
 		<header-directive></header-directive>
-			
-			<div class="qianbaobox">
+			<div class="txbox">
 			<div class="title">
-				余额账户（元）
+				提现金额（元）
+				
 			</div>
-			<div class="money">
-				{{userInfo.Money| currency:'￥'}}
+			<div class="money_box input_box clearfix">
+				<i class="icon_rmb"></i><input type="text" disabled="disabled"  ng-model="userInfo.Data[0].Money"  />
 			</div>
+			
+			
+			
 		</div>
 		
-		<div class="mymenus_box">
-			<div class="menuItem clearfixs" ng-click="gotixian()">
-				<i class="icon icon_qb"></i><span>提现</span><i class="ico_go"></i>
-			</div>
-			<div class="menuItem clearfixs" ng-click="tixianlist()">
-				<i class="icon icon_qb"></i><span>我的提现</span><i class="ico_go"></i>
-			</div>
-			
+		<div class="qrdk_btn cancel_btn" ng-if="userInfo.Data[0].Status==0">
+			待匹配
 		</div>
+		<div class="qrdk_btn" ng-if="userInfo.Data[0].Status==50" ng-click="querySK(userInfo.UId,userInfo.Data[0].FundId)">
+			确认收款
+		</div>
+		<div class="qrdk_btn cancel_btn" ng-if="userInfo.Data[0].Status==100">
+			已完成
+		</div>
+		
 	
 		<footer-Directive></footer-Directive>
 	</body>

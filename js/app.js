@@ -109,11 +109,35 @@
                 title:'提现',
                 controller:'tixianCtrl'
             })
+             .state('tixianlist',{
+                url:'/tixianlist',
+                templateUrl:'views/qiantai/tixianlist.html',
+                title:'提现列表',
+                controller:'tixianlistCtrl'
+            })
+              .state('orderlist',{
+                url:'/orderlist',
+                templateUrl:'views/qiantai/orderlist.html',
+                title:'订单列表',
+                controller:'orderlistCtrl'
+            })
             .state('qianbao',{
                 url:'/qianbao',
                 templateUrl:'views/qiantai/qianbao.html',
                 title:'钱包',
                 controller:'qianbaoCtrl'
+            })
+             .state('tixiandetail',{
+                url:'/tixiandetail/:fundId',
+                templateUrl:'views/qiantai/tixiandetail.html',
+                title:'提现详情',
+                controller:'tixiandetailCtrl'
+            })
+             .state('mydetail',{
+                url:'/mydetail/:type',
+                templateUrl:'views/qiantai/mydetail.html',
+                title:'提现详情',
+                controller:'mydetailCtrl'
             })
             
         $urlRouterProvider.otherwise("/index");

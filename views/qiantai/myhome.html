@@ -22,28 +22,32 @@
 			</div>
 			
 		</div>
-		<div class="myorder">
+		<div class="myorder" ng-click="myorderlist()">
 			<span>我的订单</span><i class="ico_go"></i>
 		</div>
 		
+		<!--//1 契约书 2奖券  3 我的团队-->
 		<div class="mymenus_box">
 			<div class="menuItem clearfixs" ng-click="qianbao_link()">
 				<i class="icon icon_qb" ></i><span>我的钱包</span><i class="ico_go"></i>
 			</div>
-			<div class="menuItem clearfixs">
+			<div class="menuItem clearfixs" ng-click="mydetail('1')">
 				<i class="icon icon_myghs"></i><span>我的规划书</span><i class="ico_go"></i>
 			</div>
-			<div class="menuItem clearfixs">
+			<div class="menuItem clearfixs" ng-click="mydetail('3')">
 				<i class="icon icon_myteam"></i><span>我的团队</span><i class="ico_go"></i>
 			</div>
 		</div>
 		
 		<div class="mymenus_box">
-			<div class="menuItem clearfixs">
+			<div class="menuItem clearfixs" ng-click="tjlink()">
 				<i class="icon icon_gift"></i><span>推荐有礼</span><i class="ico_go"></i>
 			</div>
 			<div class="menuItem clearfixs">
 				<i class="icon icon_jf"></i><span>我的积分</span><i class="ico_go"></i>
+			</div>
+			<div class="menuItem clearfixs" ng-click="mydetail('2')">
+				<i class="icon icon_jf"></i><span>我的抽奖券</span><i class="ico_go"></i>
 			</div>
 			
 		</div>

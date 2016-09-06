@@ -12,16 +12,30 @@
 		</style>
 		<header-directive></header-directive>
 			
-			<div class="qianbaobox">
-			<div class="title">
-				余额账户（元）
+			<div class="qianbaobox" ng-if="type==1">
+				<div class="title" >
+					契约书户（张）
+				</div>
+				<div class="money">
+					{{userInfo.Charter}}
+				</div>
 			</div>
-			<div class="money">
-				{{userInfo.Money| currency:'￥'}}
+			
+			<div class="qianbaobox" ng-if="type==2">
+				<div class="title" >
+					抽奖券
+				</div>
+				<div class="money">
+					{{userInfo.SweepsTakes}}
+				</div>
 			</div>
-		</div>
+			
+			<div class="qianbaobox" ng-if="type==3">
+				
+			</div>
+			
 		
-		<div class="mymenus_box">
+		<!--<div class="mymenus_box">
 			<div class="menuItem clearfixs" ng-click="gotixian()">
 				<i class="icon icon_qb"></i><span>提现</span><i class="ico_go"></i>
 			</div>
@@ -29,7 +43,7 @@
 				<i class="icon icon_qb"></i><span>我的提现</span><i class="ico_go"></i>
 			</div>
 			
-		</div>
+		</div>-->
 	
 		<footer-Directive></footer-Directive>
 	</body>
