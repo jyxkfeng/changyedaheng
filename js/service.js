@@ -110,7 +110,7 @@
 			}
 		};
 	}])
-	.factory('RefreshUserInfo', ['API','userInfo','$rootScope', function(API,userInfo,$rootScope){
+	.factory('RefreshUserInfo', ['API','userInfo','$rootScope','$cookieStore', function(API,userInfo,$rootScope,$cookieStore){
 
 		return function(callback){
 			userid={'uid':userInfo.get().UId}
@@ -118,8 +118,9 @@
 					.success(function(rt) {
 						rt = angular.fromJson(rt)
 						if(rt.Code == 0) {
-							
-							userInfo.set(rt.Data);
+							userInfo=angular.extend({},rt.Data);
+							$cookieStore.remove('userInfo');
+							userInfo.set(userInfo);							
 							console.log(userInfo.get());
 							
 						} else {

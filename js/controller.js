@@ -306,7 +306,7 @@
 		
 	}])
 
-	.controller('chuantongCtrl', ['$scope', '$rootScope', 'API', 'userInfo','playInfo', '$state', 'lyer', 'unlogin', 'RefreshUserInfo',function($scope, $rootScope, API,userInfo,playInfo, $state, lyer, unlogin,RefreshUserInfo) {
+	.controller('chuantongCtrl', ['$scope', '$rootScope', 'API', 'userInfo','playInfo', '$state', 'lyer', 'unlogin', 'RefreshUserInfo','$cookieStore',function($scope, $rootScope, API,userInfo,playInfo, $state, lyer, unlogin,RefreshUserInfo,$cookieStore) {
 		$rootScope.body_class = "ct_game_bg";
 		$scope.footerShow = true;
 		$scope.titleShow = true;
@@ -323,29 +323,14 @@
 					.success(function(rt) {
 						rt = angular.fromJson(rt)
 						if(rt.Code == 0) {
-							userInfo.set(rt.Data);
-							console.log(userInfo.get());	
+							$scope.userInfo=angular.extend({},rt.Data);
+							$cookieStore.remove('userInfo');
+							userInfo.set($scope.userInfo);
+							console.log(userInfo.get())
 						} else {
 							return false;
 						}
 					});
-//			function PlaySpeed(params){
-//				API.qtInt('/api/yqsPlay/PlaySpeed/', params)
-//				.success(function(rt) {
-//					rt = angular.fromJson(rt)
-//					if(rt.Code == 0) {
-//						
-//						playInfo.set(rt.Data);
-//						console.log(playInfo.get()[0]);
-//					} else {
-//						return false;
-//					}
-//				});
-//			}
-			
-					
-				
-	
 		}
 		$scope.playGame = function(PlayCollection, PlayStage) {
 			
@@ -361,26 +346,6 @@
 						PlayStage:1
 					})
 					return false;
-			// api/yqsPlay/Play/?uid=1&playid=1&playcollection=1&playstage=1
-//			var params = {
-//				'uid': userInfo.get().UId,
-//				'playid': 1,
-//				'playcollection': PlayCollection,
-//				'playstage': PlayStage
-//			};
-//
-//			API.qtInt('/api/yqsPlay/Play/', params)
-//				.success(function(rt) {
-//					rt = angular.fromJson(rt)
-//					if(rt.Code == 0) {
-//						console.log(rt);
-//						playInfo.set(rt.Data);
-//
-//					} else {
-//						lyer.msg(rt.Msg);
-//						return false;
-//					}
-//				});
 				}
 				else{
 					lyer.msg('您必须从第一关开始玩');
