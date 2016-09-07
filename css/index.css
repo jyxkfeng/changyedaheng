@@ -237,3 +237,7 @@ body{ min-height: 100vh;}
 .qianbaobox{ background: #7ea6f1; padding: .25rem;}
 .qianbaobox .title{ font-size: .14rem; color: #FFFFFF;}
 .qianbaobox .money{ font-size: .45rem; color: #FFFFFF;}
+
+.qianbaobox .tbth li{ width: 33.33%; float: left;font-size: .16rem; height: .25rem; line-height: .25rem; color: #FFFFFF;}
+.qianbaobox .tbtd li{ width: 33.33%; float: left;font-size: .14rem;height: .25rem; line-height: .20rem;color: #FFFFFF;}
+

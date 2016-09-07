@@ -136,7 +136,7 @@
              .state('mydetail',{
                 url:'/mydetail/:type',
                 templateUrl:'views/qiantai/mydetail.html',
-                title:'提现详情',
+                title:'详情',
                 controller:'mydetailCtrl'
             })
             

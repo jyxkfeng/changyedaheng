@@ -31,7 +31,8 @@
 			</div>
 			
 			<div class="qianbaobox" ng-if="type==3">
-				
+				<ul class="tbth clearfix"><li>ID</li><li></li><li>姓名</li></ul>
+				<ul class="tbtd clearfix" ng-repeat="item in TeamInfo._MyTeams"><li>{{item.UId}}</li><li><img src="{{item.UFace}}"  /></li><li>{{item.Name}}</li></ul>
 			</div>
 			
 		

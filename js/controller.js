@@ -327,6 +327,44 @@
 							$cookieStore.remove('userInfo');
 							userInfo.set($scope.userInfo);
 							console.log(userInfo.get())
+							
+							
+							
+							$scope.PlayCollection=userInfo.get().PlayCollection;
+							$scope.PlayStage=userInfo.get().PlayStage;
+							$scope.PlayStatus=userInfo.get().PlayStatus;
+							if($scope.PlayStatus==100){
+								if($scope.PlayCollection==1){
+									if($scope.PlayStage<3){
+										$scope.PlayStage+1;
+										return false;
+									}
+									else{
+										$scope.PlayCollection=2;
+										$scope.PlayStage=1;
+										return false;
+									}
+									
+								}
+								else if($scope.PlayCollection==2){
+
+										$scope.PlayCollection+1;
+										return false;
+								}
+								else if($scope.PlayCollection==3){
+									if($scope.PlayStage<5){
+										$scope.PlayStage+1;
+										return false;
+									}
+									else{
+										$scope.PlayCollection=0;
+										$scope.PlayStage=0;
+										return false;
+									}
+								}
+								
+								
+							}
 						} else {
 							return false;
 						}
@@ -334,8 +372,8 @@
 		}
 		$scope.playGame = function(PlayCollection, PlayStage) {
 			
-			$scope.PlayCollection=userInfo.get().PlayCollection;
-			$scope.PlayStage=userInfo.get().PlayStage;
+			
+			
 			//当前没有玩游戏
 			if($scope.PlayCollection==0&&$scope.PlayStage==0){
 				if(PlayCollection==1&&PlayStage==1){
@@ -358,13 +396,25 @@
 				lyer.msg('你还未获取此关游戏的资格.请努力!');
 				return false;
 			}
+			if(PlayCollection<$scope.PlayCollection){
+				lyer.msg('您已经玩过此游戏了!',function(){
+					$state.go('touzi',{
+						Playid:1,
+						PlayCollection:PlayCollection,
+						PlayStage:PlayStage
+					})
+				});
+				return false;
+			}
 			////想玩的层级在第一层级
 			if(PlayCollection <= 1) {
 				//第一个必玩的项目判断
 				if($scope.PlayStage < PlayStage) {
 					lyer.msg('你还没通过前面一关');
 					return false;
-				} else if($scope.PlayStage > PlayStage) {
+				} 
+			
+				else if($scope.PlayStage > PlayStage) {
 					lyer.msg('你已经玩过这一关');
 					return false;
 				}
@@ -376,6 +426,14 @@
 					})
 				return false;
 				}
+			}
+			if(PlayCollection==2||PlayCollection==3){
+				$state.go('touzi',{
+						Playid:1,
+						PlayCollection:PlayCollection,
+						PlayStage:PlayStage
+					})
+				return false;
 			}
 			//点击的正好是当前层级
 			if($scope.PlayCollection==PlayCollection&&$scope.PlayStage==PlayStage){
@@ -561,7 +619,7 @@
 	}])
 	
 	//投资
-	.controller('touziCtrl', ['$scope', '$rootScope', 'API', 'userInfo','playInfo', '$state', 'lyer', '$stateParams',function($scope, $rootScope, API, userInfo, playInfo,$state, lyer, $stateParams) {
+	.controller('touziCtrl', ['$scope', '$rootScope', 'API', 'userInfo','playInfo', '$state', 'lyer', '$stateParams','$cookieStore',function($scope, $rootScope, API, userInfo, playInfo,$state, lyer, $stateParams,$cookieStore) {
 		// unlogin($scope);
 		
 		if(!$rootScope.isLogin) {
@@ -624,8 +682,9 @@
 				} else {
 					//未查询到游戏进度,新建游戏
 					$scope.status=-1;
-					playInfo.set(rt.Data);
-					$scope.playInfo=playInfo.get()
+					$scope.playInfo=angular.extend({},rt.Data);
+					$cookieStore.remove('playInfo');
+					playInfo.set($scope.playInfo);
 					console.log($scope.playInfo);					
 					return false;
 		}				
