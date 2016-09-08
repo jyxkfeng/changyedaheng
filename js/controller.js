@@ -92,14 +92,14 @@
 
 				console.log('register');
 				console.log($scope.params)
-				if($scope.registerForm.name.$error.required || $scope.registerForm.pwd.$error.required || $scope.registerForm.tel.$error.required || $scope.registerForm.reference.$error.required || $scope.registerForm.referencetel.$error.required) {
+				if($scope.registerForm.name.$error.required || $scope.registerForm.pwd.$error.required || $scope.registerForm.tel.$error.required || $scope.registerForm.reference.$error.required ) {
 					lyer.msg('不能为空');
 					return false;
 				}
 				if($scope.params.pwd != $scope.params.repwd) {
 					lyer.msg('两次密码不一致');
 					return false;
-				} else if($scope.registerForm.name.$error.pattern || $scope.registerForm.pwd.$error.pattern || $scope.registerForm.tel.$error.pattern || $scope.registerForm.reference.$error.pattern || $scope.registerForm.referencetel.$error.pattern) {
+				} else if($scope.registerForm.name.$error.pattern || $scope.registerForm.pwd.$error.pattern || $scope.registerForm.tel.$error.pattern || $scope.registerForm.reference.$error.pattern ) {
 					lyer.msg('请正确输入');
 					return false;
 				}
@@ -214,7 +214,7 @@
 		}])
 
 	//游戏选择
-	.controller('gamelistCtrl', ['$scope', '$rootScope', '$state', 'lyer', 'unlogin', function($scope, $rootScope, $state, lyer, unlogin) {
+	.controller('gamelistCtrl', ['$scope', '$rootScope', '$state', 'lyer', 'unlogin','API', function($scope, $rootScope, $state, lyer, unlogin,API) {
 		// unlogin($scope);
 		$rootScope.body_class = "gamelist_bg";
 		console.log($rootScope.isLogin);
@@ -225,24 +225,54 @@
 			$state.go('login');
 			console.log($rootScope.isLogin);
 			return false;
-		}	
+		}
+		$scope.guize=function(){
+			$state.go('guize');
+		}
 	}])
 
-	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state','$cookieStore', 'lyer','userInfo',function($scope, $rootScope, $state,$cookieStore, lyer,userInfo) {
+	.controller('myhomeCtrl', ['$scope', '$rootScope', '$state','$cookieStore', 'lyer','userInfo','$http','API',function($scope, $rootScope, $state,$cookieStore, lyer,userInfo,$http,API) {
 		$rootScope.body_class = "myhone_bg";
 		$scope.footerShow = true;
 		$scope.titleShow = true;
+		$scope.tjshow=false;
+		$scope.host='http://api.cydhch.com';
 		if(!$rootScope.isLogin) {
 			$state.go('login');
 			console.log($rootScope.isLogin);
 			return false;
 		}
+		
+				//体现前先进行查询
+			API.qtInt('/api/yqsuser/Refresh/',{uid:userInfo.get().UId})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											$scope.userInfo=angular.extend({},rt.Data);
+											$cookieStore.remove('userInfo');
+											userInfo.set($scope.userInfo);
+											console.log(rt);
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
 		$scope.userInfo=userInfo.get();
+		var imgface=$scope.host+userInfo.get().UFace;
+		$scope.imgface=userInfo.get().UFace!=''?imgface:'images/user_bg.jpg';
+		
 		$scope.tjlink=function(){
-			lyer.msg('cydhch.com/index.html#/register/'+$scope.userInfo.Name+'?ReferenceTel=18912608450');
+			$scope.tjshow=!$scope.tjshow;
+			$scope.tjlinkurl='cydhch.com/index.html#/register/'+$scope.userInfo.Name+'?ReferenceTel='
 		}
+		$scope.tjlink2=function(){
+			lyer.msg('cydhch.com/index.html#/register/'+$scope.userInfo.Name+'?ReferenceTel=');
+			}
 		$scope.qianbao_link=function(){
 			$state.go('qianbao');
+		}
+		$scope.tixianlist=function(){
+			$state.go('tixianlist');
 		}
 		$scope.myorderlist=function(){
 			$state.go('orderlist');
@@ -259,6 +289,88 @@
 				$rootScope.isLogin = false;
 				$state.go('login');
 			}
+		$scope.upfaceimg=function(){
+			document.querySelector('#localfile').click();
+			
+			$scope.fileNameChanged = function(sender) {
+							
+							if(!sender.value.match(/.jpg|.jpeg|.gif|.png|.bmp/i)) {
+								console.log('图片格式无效！');
+								return false;
+							}
+							if(sender.files && sender.files[0]) { //这里面就是chrome和ff可以兼容的了 
+								var params = {
+									imgface: sender.files[0]
+								}
+								$http({
+										method: 'POST',
+										url: 'http://api.cydhch.com/api/UpLoadFile/UpLoadPic/',
+										headers: {
+											'Content-Type': undefined
+										},
+										data: params,
+										transformRequest: function(data, headersGetter) {
+											var formData = new FormData();
+											angular.forEach(data, function(value, key) {
+												formData.append(key, value);
+											});
+
+											var headers = headersGetter();
+											delete headers['Content-Type'];
+
+											return formData;
+										}
+									})
+									.success(function(rt) {
+										rt = angular.fromJson(rt)
+										if(rt.Code == 0) {
+											console.log(rt);
+											
+												$scope.pic = rt.Data;
+												$scope.locpic=$scope.host+rt.Data;
+												
+													API.qtInt('/api/yqsuser/BandFace/', {uid:userInfo.get().UId,ufacename:$scope.pic})
+													.success(function(rt) {
+														rt = angular.fromJson(rt)
+														if(rt.Code == 0) {
+															lyer.msg('绑定头像成功!',function(){
+																$scope.imgface=$scope.locpic;
+																$scope.$apply();
+																$state.go('myhome');
+															});
+														} else {
+															lyer.msg(rt.Msg);
+															return false;
+															
+														}
+													});
+												
+				
+												
+												
+											
+										} else {
+											lyer.msg(rt.Msg);
+											return false;
+										}
+									});
+							}
+						}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
 		
 	}])
 
@@ -371,11 +483,10 @@
 					});
 		}
 		$scope.playGame = function(PlayCollection, PlayStage) {
-			
-			
-			
 			//当前没有玩游戏
-			if($scope.PlayCollection==0&&$scope.PlayStage==0){
+			if(
+			($scope.PlayCollection==0&&$scope.PlayStage==0)||(PlayCollection ==1 && $scope.PlayCollection ==3 && $scope.PlayStatus == 100))
+			{
 				if(PlayCollection==1&&PlayStage==1){
 					console.log("新建游戏");
 					$state.go('touzi',{
@@ -409,7 +520,15 @@
 			////想玩的层级在第一层级
 			if(PlayCollection <= 1) {
 				//第一个必玩的项目判断
-				if($scope.PlayStage < PlayStage) {
+				debugger;
+				if($scope.PlayStage== PlayStage || ($scope.PlayStage < PlayStage && $scope.PlayStatus == 100 && $scope.PlayStage == PlayStage-1)){
+					$state.go('touzi',{
+						Playid:1,
+						PlayCollection:1,
+						PlayStage:PlayStage
+					})
+				}
+				else if($scope.PlayStage < PlayStage ) {	
 					lyer.msg('你还没通过前面一关');
 					return false;
 				} 
@@ -417,15 +536,7 @@
 				else if($scope.PlayStage > PlayStage) {
 					lyer.msg('你已经玩过这一关');
 					return false;
-				}
-				else if($scope.PlayStage== PlayStage){
-					$state.go('touzi',{
-						Playid:1,
-						PlayCollection:1,
-						PlayStage:PlayStage
-					})
-				return false;
-				}
+				} 
 			}
 			if(PlayCollection==2||PlayCollection==3){
 				$state.go('touzi',{
@@ -860,6 +971,10 @@
 										}
 									});
 		}
+		$scope.showmyteam=function(i){
+			$scope.showteamnum=i;
+			console.log(i);
+		}
 	
 		}])
 		//个人资料
@@ -880,9 +995,11 @@
 				});
 		}])
 
-	//修改手机号码
-	.controller('editPhoneCtrl', ['$scope', function($scope) {
-
+	//规则
+	.controller('guizeCtrl', ['$scope','$rootScope', function($scope,$rootScope) {
+		$rootScope.body_class = "login_bg";
+		$scope.footerShow = true;
+		$scope.titleShow = true;
 	}])
 
 	.controller('otherCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {

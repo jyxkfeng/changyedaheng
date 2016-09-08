@@ -162,7 +162,6 @@
 										if(rt.Code == 0) {
 											console.log(rt);
 											lyer.msg(rt.Msg, function() {
-												$scope.host
 												$scope.pic = rt.Data;
 												$scope.locpic=$scope.host+rt.Data;
 												

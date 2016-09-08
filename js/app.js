@@ -139,6 +139,12 @@
                 title:'详情',
                 controller:'mydetailCtrl'
             })
+             .state('guize',{
+                url:'/guize',
+                templateUrl:'views/qiantai/guize.html',
+                title:'规则',
+                controller:'guizeCtrl'
+            })
             
         $urlRouterProvider.otherwise("/index");
     }]);

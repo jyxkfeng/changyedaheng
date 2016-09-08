@@ -12,16 +12,31 @@
 		</style>
 		<header-directive></header-directive>
 		
+		<div style="padding-bottom: .5rem;">
+			
+	
 		<div class="my_box">
 			<div class=" clearfix">
-				<a><img src="images/user_bg.jpg" /></a>
+				<a><img src="{{imgface}}" ng-click="upfaceimg()" /></a>
 				<span>{{userInfo.Name}}<br />
-					  <p ng-click="tjlink()">点击获取注册链接</p>
+					  <p ng-click="tjlink()">点击获取注册链接<br />
+					  <i ng-show="tjshow">{{tjlinkurl}}</i>
+					  </p>
+					  
 				</span>
 				<i class="ico_go"></i>
 			</div>
 			
 		</div>
+		
+			<form enctype="multipart/form-data" method="POST" action="http://api.cydhch.com/api/UpLoadFile/UpLoadPic/" hidden="hidden">
+			<input type="hidden" name="MAX_FILE_SIZE" value="6000000">
+			<input type="hidden" name="id" value="" ng-model="uid" id="uid" />
+			<input name='imgface' type="file"  ng-model="upFile"   id="localfile" onchange="angular.element(this).scope().fileNameChanged(this)""/> 
+			<input type="submit" id="img_submit" value="Send File">
+		</form>
+		
+		
 		<div class="myorder" ng-click="myorderlist()">
 			<span>我的订单</span><i class="ico_go"></i>
 		</div>
@@ -30,6 +45,9 @@
 		<div class="mymenus_box">
 			<div class="menuItem clearfixs" ng-click="qianbao_link()">
 				<i class="icon icon_qb" ></i><span>我的钱包</span><i class="ico_go"></i>
+			</div>
+			<div class="menuItem clearfixs" ng-click="tixianlist()">
+				<i class="icon icon_qb" ></i><span>提现记录</span><i class="ico_go"></i>
 			</div>
 			<div class="menuItem clearfixs" ng-click="mydetail('1')">
 				<i class="icon icon_myghs"></i><span>我的规划书</span><i class="ico_go"></i>
@@ -40,7 +58,7 @@
 		</div>
 		
 		<div class="mymenus_box">
-			<div class="menuItem clearfixs" ng-click="tjlink()">
+			<div class="menuItem clearfixs" ng-click="tjlink2()">
 				<i class="icon icon_gift"></i><span>推荐有礼</span><i class="ico_go"></i>
 			</div>
 			<div class="menuItem clearfixs">
@@ -55,7 +73,7 @@
 		<div class="qrdk_btn" ng-click="logout()" style="margin-bottom: .1rem;">
 				退出
 				</div>
-		
+			</div>
 		<footer-Directive></footer-Directive>
 	</body>
 

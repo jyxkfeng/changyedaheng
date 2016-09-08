@@ -126,7 +126,7 @@ body{ min-height: 100vh;}
 .ct_game ul li .ico_cydh{background: url(../images/ico_cydh.png) center center no-repeat;background-size: cover;}
 
 /*投资*/
-.touzi_bg{ background: #e8e8e8;}
+.touzi_bg{ background: #e8e8e8; }
 .timer_box{ height: .4rem; line-height: .4rem; background: #c7d5fa; color: #4a4ee2; padding-left: 50%; font-size: .12rem}
 .timer_box .icon_clock{ background: url(../images/icon_clock.png) center center no-repeat; width: .4rem; height: .4rem; background-size:.16rem .16rem; float: left;}
 
@@ -211,10 +211,10 @@ body{ min-height: 100vh;}
 
 /*我的*/
 .myhone_bg{ background: #E8E8E8;}
-.my_box{ padding: .1rem .2rem; font-size: 0; background: url(../images/homebg.jpg) center center; background-size: cover; width: 100%; height: 1rem;}
+.my_box{ padding: .1rem .2rem; font-size: 0; background: url(../images/homebg.jpg) center center; background-size: cover; width: 100%; min-height: 1rem;}
 .my_box a{ width: .56rem; height: .56rem; float: left; border-radius: 50%; overflow: hidden; font-size: 0}
 .my_box a img{ width: 100%; height: 100%;}
-.my_box span{ float: left; font-size: .14rem; color: #666666; line-height: .28rem; padding-left: .15rem;}
+.my_box span{ float: left; width: 75%; word-break: break-all; font-size: .14rem; color: #666666; line-height: .28rem; padding-left: .15rem;}
 .ico_go{ background: url(../images/icon_go.png) center center no-repeat; width: .075rem; height: .56rem; background-size: .075rem .15rem; float: right;}
 .my_box p{ font-size: .12rem; padding: 0;}
 .myorder{ background: #FFFFFF; height: .55rem; padding:0  .1rem; line-height: .55rem; font-size: .14rem; color: #666666;}
@@ -238,6 +238,20 @@ body{ min-height: 100vh;}
 .qianbaobox .title{ font-size: .14rem; color: #FFFFFF;}
 .qianbaobox .money{ font-size: .45rem; color: #FFFFFF;}
 
-.qianbaobox .tbth li{ width: 33.33%; float: left;font-size: .16rem; height: .25rem; line-height: .25rem; color: #FFFFFF;}
-.qianbaobox .tbtd li{ width: 33.33%; float: left;font-size: .14rem;height: .25rem; line-height: .20rem;color: #FFFFFF;}
+.qianbaobox .tbth li{ width: 25%; float: left;font-size: .16rem; height: .25rem; line-height: .25rem; color: #FFFFFF;}
+.qianbaobox .tbtd li{ width: 25%; float: left;font-size: .14rem;height: .25rem; line-height: .20rem;color: #FFFFFF; overflow: hidden;}
+.qianbaobox .tbtd li img{ width: .25rem; height: .25rem; border-radius: 50%;}
+.qianbaobox  ul{ width: 100%;}
+.qianbaobox  ul li:nth-of-type(1){ width: .25rem;}
+.qianbaobox  ul li:nth-of-type(2){width: .25rem;}
+.qianbaobox  ul li:nth-of-type(3){ padding-left: .15rem;}
+.qianbaobox  ul li:nth-of-type(4){}
+.qianbaobox .teamPlay{ width: 100%; padding:0 5%;min-height: .25rem; float: left; width: 100%;}
+.qianbaobox .teamPlay ol{ height: .25rem;border-bottom: 1px solid #f5f5f5; }
+.qianbaobox .teamPlay ol  li{  width: 33.33%; }
 
+.touzi_bg{background: url(../images/bg4.jpg) center center no-repeat; background-size: 100% auto;}
+.touzi_box{ background: none;}
+.touzi_box .input_box input{ background: none;color: #f6f6f6;}
+.touzi_box .input_box span{ color: #f6f6f6;}
+.touzi_box .input_box{ border-bottom: 1px solid #F6F6F6;}
